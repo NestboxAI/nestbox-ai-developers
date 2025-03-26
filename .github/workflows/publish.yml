@@ -19,8 +19,24 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Checkout API Admin Repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'NestboxAI/nestbox-ai-clients'
+          ref: 'main'
+          path: 'nestbox-ai-clients'
+          token: ${{ secrets.GH_PAT }}
+  
+      - name: Move specs from nestbox-ai-clients to root 
+        run: |
+            cp nestbox-ai-clients/specs/* specs/
+            rm -rf nestbox-ai-clients
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Generate open api docs
+        run: npm run docusaurus gen-api-docs all
 
       - name: Build Docusaurus site
         run: npm run build
