@@ -62,4 +62,4 @@ jobs:
         run: |
           gcloud compute url-maps invalidate-cdn-cache ${{ secrets.GCP_CDN_URL_MAP_DEVELOPERS_SITE }} \
             --path "/*" \
-            --quiet
+            --quiet &
