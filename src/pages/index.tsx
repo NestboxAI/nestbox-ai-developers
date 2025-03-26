@@ -16,7 +16,7 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           Welcome Developers!
         </Heading>
-        <p className="hero__subtitle">Let's learn how to build agents!</p>
+        <p className="hero__subtitle">Let's build agents!</p>
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
