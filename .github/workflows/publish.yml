@@ -29,6 +29,7 @@ jobs:
   
       - name: Move specs from nestbox-ai-clients to root 
         run: |
+            mkdir specs
             mv nestbox-ai-clients/specs/* specs/
             rm -rf nestbox-ai-clients
 
