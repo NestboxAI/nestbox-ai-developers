@@ -57,3 +57,9 @@ jobs:
       - name: Set Website Bucket Permissions
         run: |
           gsutil iam ch allUsers:objectViewer gs://developers.nestbox.ai
+
+      - name: Invalidate Cloud CDN Cache
+        run: |
+          gcloud compute url-maps invalidate-cdn-cache ${{ secrets.GCP_CDN_URL_MAP_DEVELOPERS_SITE }} \
+            --path "/*" \
+            --quiet
