@@ -75,10 +75,10 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'Nestbox AI - Developers',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Nestbox AI',
+        src: 'img/favicon/android-chrome-512x512.png',
       },
       items: [
         {
@@ -138,7 +138,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Nestbox AI for Developers.`,
     },
     prism: {
       theme: prismThemes.github,
