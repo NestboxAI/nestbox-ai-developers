@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Advanced Document Intelligence',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Efficiently parse, catalog, tag, store, and manage large-scale document sets.
+        Quickly query and retrieve information from complex documents, enhancing agent accuracy and reducing manual data handling
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Seamless Agent Integration',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Easily create, customize, and deploy AI agents capable of autonomously executing operations via seamless third-party integrations. 
+        Automate workflows across existing systems, boosting productivity and reducing human oversight
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Developer-First Experience',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Designed with developers in mind: intuitive SDKs, comprehensive APIs, robust CLI tools, and thorough documentation.
+        Accelerate development timelines and reduce complexity, ensuring rapid adoption and ease of use for technical teams.
       </>
     ),
   },

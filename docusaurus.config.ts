@@ -96,7 +96,7 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "Nestbox AI - Developers",
+      title: "Nestbox AI",
       logo: {
         alt: "Nestbox AI",
         src: "img/favicon/android-chrome-512x512.png",
