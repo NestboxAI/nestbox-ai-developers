@@ -2,46 +2,36 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Intro to Nestbox
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Nestbox empowers mid-market companies with specialized, self-hosted AI solutions and intelligent agents, seamlessly integrated to enhance productivity, streamline workflows, and drive impactful decisions.
 
-## Getting Started
+## Goals of the Documentation Site 
 
-Get started by **creating a new site**.
+The Nestbox AI documentation site aims to provide developers with clear, comprehensive, and easy-to-navigate resources to quickly integrate, customize, and optimize Nestbox’s AI solutions. Our documentation is structured to:
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+* Facilitate a smooth onboarding experience by offering step-by-step tutorials and detailed setup guides.
 
-### What you'll need
+* Provide complete reference documentation for APIs, SDKs, and platform functionalities.
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+* Enable developers to quickly troubleshoot issues through robust examples, clear error descriptions, and FAQs.
 
-## Generate a new site
+* Encourage best practices for secure, scalable, and efficient integration and customization of AI-driven functionalities.
 
-Generate a new Docusaurus site using the **classic template**.
+* Foster community collaboration and continuous improvement by offering channels for feedback, questions, and contributions.
 
-The classic template will automatically be added to your project after you run the command:
+## **Exposed API Capabilities**
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+Nestbox exposes a carefully curated selection of APIs, ensuring flexibility, security, and ease of integration. The APIs we provide include:
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+* **AI Agents APIs:** Create, configure, and manage specialized AI agents for targeted business workflows, such as sales enablement, customer support, and internal productivity tools.
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+* **Authentication and Authorization APIs:** Secure, role-based access to Nestbox’s platform features and resources.
 
-## Start your site
+* **Integration APIs:** Seamlessly connect Nestbox with popular CRM, accounting, marketing automation, and other enterprise systems.
 
-Run the development server:
+* **Data Management APIs:** Manage datasets, perform data enrichment, and facilitate structured data exchanges between Nestbox and other business applications.
 
-```bash
-cd my-website
-npm run start
-```
+* **Monitoring and Analytics APIs:** Access real-time and historical performance metrics, insights, and logging to optimize AI-agent operations and platform performance.
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+By providing these targeted API capabilities, Nestbox ensures developers have precise, powerful, and secure tools to enhance their organization's intelligence-driven workflows.
