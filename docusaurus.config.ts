@@ -106,11 +106,16 @@ const config: Config = {
           type: "docSidebar",
           sidebarId: "tutorialSidebar",
           position: "left",
-          label: "Tutorial",
+          label: "Docs & Tools",
+        },
+        {
+          href: "/docs/category/api-references",
+          label: "API Reference",
+          position: "left",
         },
         { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/NestboxAI/nestbox-ai-clients",
+          href: "https://github.com/NestboxAI/",
           label: "GitHub",
           position: "right",
         },
