@@ -59,28 +59,28 @@ const config: Config = {
         config: {
           admin: {
             specPath: "specs/openapi-admin.json",
-            outputDir: "docs/admin",
+            outputDir: "docs/api-reference/admin",
             sidebarOptions: {
               groupPathsBy: "tag",
             },
           } satisfies OpenApiPlugin.Options,
           documents: {
             specPath: "specs/openapi-documents.json",
-            outputDir: "docs/documents",
+            outputDir: "docs/api-reference/documents",
             sidebarOptions: {
               groupPathsBy: "tag",
             },
           } satisfies OpenApiPlugin.Options,
           instances: {
             specPath: "specs/openapi-instances.json",
-            outputDir: "docs/instances",
+            outputDir: "docs/api-reference/instances",
             sidebarOptions: {
               groupPathsBy: "tag",
             },
           } satisfies OpenApiPlugin.Options,
           agents: {
             specPath: "specs/openapi-agents.json",
-            outputDir: "docs/agents",
+            outputDir: "docs/api-reference/agents",
             sidebarOptions: {
               groupPathsBy: "tag",
             },
