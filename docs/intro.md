@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Nestbox empowers mid-market companies with specialized, self-hosted AI solutions and intelligent agents, seamlessly integrated to enhance productivity, streamline workflows, and drive impactful decisions.
 
-## Goals of the Documentation Site 
+## Welcome to the Developers Site
 
 The Nestbox AI documentation site aims to provide developers with clear, comprehensive, and easy-to-navigate resources to quickly integrate, customize, and optimize Nestbox’s AI solutions. Our documentation is structured to:
 
