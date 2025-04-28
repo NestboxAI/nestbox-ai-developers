@@ -134,7 +134,7 @@ const config: Config = {
 					items: [
 						{
 							label: "Docs & Tools",
-							to: "/docs/intro",
+							to: "/docs/welcome-to-the-nestbox-ai-developer-portal",
 						},
 						{
 							label: "API Reference",
