@@ -1,18 +1,19 @@
 ---
-sidebar_position: 2
+title: Agents API
+sidebar_position: 4
 ---
 
 # Agent Operations API
 
 Welcome to the Agent Management SDK documentation. This SDK allows you to manage and interact with your AI agents programmatically. It provides four main APIs for agent management:
 
-* **Query API** – Send queries to your agents and receive responses.
+-   **Query API** – Send queries to your agents and receive responses.
 
-* **Webhooks API** – Manage webhook endpoints to get real-time agent event notifications.
+-   **Webhooks API** – Manage webhook endpoints to get real-time agent event notifications.
 
-* **Event Logs API** – Retrieve logs of agent events for auditing and debugging.
+-   **Event Logs API** – Retrieve logs of agent events for auditing and debugging.
 
-* **Guardrails API** – Define and control rules (guardrails) to constrain agent behavior.
+-   **Guardrails API** – Define and control rules (guardrails) to constrain agent behavior.
 
 Below, you'll find guidance on authenticating with the SDK and detailed documentation for each API, including method descriptions, parameters, return values, and usage examples in both TypeScript and JavaScript.
 
@@ -22,9 +23,9 @@ Before using any API, you must configure the SDK with your credentials. The SDK 
 
 **How to set up the Configuration:**
 
-* **API Key**: Obtain an API key for the agent management service. This key authenticates your requests.
+-   **API Key**: Obtain an API key for the agent management service. This key authenticates your requests.
 
-* **Base Path (API URL)**: The base URL endpoint for the API (e.g., `https://api.example.com`). This may be provided by the service; if not specified, the SDK uses a default.
+-   **Base Path (API URL)**: The base URL endpoint for the API (e.g., `https://api.example.com`). This may be provided by the service; if not specified, the SDK uses a default.
 
 Typically, you'll create a single `Configuration` instance and reuse it for all API classes.
 
@@ -49,12 +50,18 @@ const guardrailsApi = new GuardrailsApi(config);
 **Example (JavaScript):**
 
 ```javascript
-const { Configuration, QueryApi, WebhooksApi, EventLogsApi, GuardrailsApi } = require('agents-sdk');
+const {
+	Configuration,
+	QueryApi,
+	WebhooksApi,
+	EventLogsApi,
+	GuardrailsApi,
+} = require("agents-sdk");
 
 // Initialize configuration with API key and base URL
 const config = new Configuration({
-  apiKey: 'YOUR_API_KEY',
-  basePath: 'https://api.example.com'
+	apiKey: "YOUR_API_KEY",
+	basePath: "https://api.example.com",
 });
 
 // Create API client instances using the configuration
@@ -78,21 +85,21 @@ Send a query (question or message) to a specified agent and get a response. This
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent to query.
+-   `agentId` _(string)_ – The unique identifier of the agent to query.
 
-* `query` *(string)* – The question or message you want to send to the agent.
+-   `query` _(string)_ – The question or message you want to send to the agent.
 
-* `userId` *(string, optional)* – An optional identifier for the end-user who is asking the question. Providing a userId can help associate the query with a user (useful for personalization or logging).
+-   `userId` _(string, optional)_ – An optional identifier for the end-user who is asking the question. Providing a userId can help associate the query with a user (useful for personalization or logging).
 
 **What it does:** Sends the query text to the agent identified by `agentId`. The agent processes the query (using its underlying AI model or knowledge base) and formulates a response.
 
 **Returns:** A **Promise** that resolves to a `QueryResponse` object containing the agent’s answer and related metadata. The `QueryResponse` typically includes:
 
-* `answer` *(string)* – The agent’s answer or message in response to the query.
+-   `answer` _(string)_ – The agent’s answer or message in response to the query.
 
-* `queryId` *(string)* – An identifier for the query interaction (useful for logs or follow-up).
+-   `queryId` _(string)_ – An identifier for the query interaction (useful for logs or follow-up).
 
-* *Additional fields* – e.g., `confidence` score, `timestamp`, etc., depending on the implementation.
+-   _Additional fields_ – e.g., `confidence` score, `timestamp`, etc., depending on the implementation.
 
 **Example (TypeScript):**
 
@@ -122,23 +129,27 @@ askAgent();
 **Example (JavaScript):**
 
 ```javascript
-const { QueryApi, Configuration } = require('agents-sdk');
+const { QueryApi, Configuration } = require("agents-sdk");
 
-const config = new Configuration({ apiKey: 'YOUR_API_KEY', basePath: 'https://api.example.com' });
+const config = new Configuration({
+	apiKey: "YOUR_API_KEY",
+	basePath: "https://api.example.com",
+});
 const queryApi = new QueryApi(config);
 
 // Example: Query an agent (e.g., customer support bot) for store hours
-const agentId = 'agent-12345';
-const question = 'What time does the store open on weekends?';
+const agentId = "agent-12345";
+const question = "What time does the store open on weekends?";
 
-queryApi.queryAgent(agentId, question)
-  .then(response => {
-    console.log('Agent response:', response.answer);
-    // e.g., "Agent response: Our store opens at 9 AM on Saturdays and 10 AM on Sundays."
-  })
-  .catch(error => {
-    console.error('Error querying agent:', error);
-  });
+queryApi
+	.queryAgent(agentId, question)
+	.then(response => {
+		console.log("Agent response:", response.answer);
+		// e.g., "Agent response: Our store opens at 9 AM on Saturdays and 10 AM on Sundays."
+	})
+	.catch(error => {
+		console.error("Error querying agent:", error);
+	});
 ```
 
 In these examples, we send a text query to an agent and log the returned answer. The `queryAgent` method handles the request/response cycle with the agent, abstracting away the HTTP calls. You can use this method in day-to-day scenarios such as getting answers to user questions or performing tasks via the agent.
@@ -151,11 +162,11 @@ The Webhooks API lets you manage webhook endpoints for receiving real-time notif
 
 **Common agent events you might subscribe to via webhooks include:**
 
-* Agent completed a query and produced a response.
+-   Agent completed a query and produced a response.
 
-* A guardrail was triggered (e.g., agent blocked certain content).
+-   A guardrail was triggered (e.g., agent blocked certain content).
 
-* An error or exception occurred during agent processing.
+-   An error or exception occurred during agent processing.
 
 The following methods are available in the Webhooks API to manage your webhook subscriptions.
 
@@ -163,21 +174,21 @@ The following methods are available in the Webhooks API to manage your webhook s
 
 Retrieve all webhook configurations registered in your account (or for a specific agent, if applicable). Use this to see what webhooks are currently set up.
 
-**Parameters:** *None.* (The SDK uses the configured credentials to determine the scope, e.g., all webhooks for your account or project.)
+**Parameters:** _None._ (The SDK uses the configured credentials to determine the scope, e.g., all webhooks for your account or project.)
 
 **Returns:** A **Promise** resolving to an array of **Webhook** objects. Each Webhook object typically contains:
 
-* `id` *(string)* – Unique identifier for the webhook.
+-   `id` _(string)_ – Unique identifier for the webhook.
 
-* `url` *(string)* – The callback URL where events are sent.
+-   `url` _(string)_ – The callback URL where events are sent.
 
-* `events` *(string\[\])* – List of event types this webhook is subscribed to (e.g., `["AgentResponse", "GuardrailTriggered"]`).
+-   `events` _(string\[\])_ – List of event types this webhook is subscribed to (e.g., `["AgentResponse", "GuardrailTriggered"]`).
 
-* `active` *(boolean)* – Whether the webhook is currently active (enabled to receive events).
+-   `active` _(boolean)_ – Whether the webhook is currently active (enabled to receive events).
 
-* `description` *(string)* – Optional description of the webhook.
+-   `description` _(string)_ – Optional description of the webhook.
 
-* `createdAt` *(Date or string)* – Timestamp when the webhook was created.
+-   `createdAt` _(Date or string)_ – Timestamp when the webhook was created.
 
 **Example (TypeScript):**
 
@@ -204,20 +215,28 @@ showWebhooks();
 **Example (JavaScript):**
 
 ```javascript
-const { WebhooksApi, Configuration } = require('agents-sdk');
-const config = new Configuration({ apiKey: 'YOUR_API_KEY', basePath: 'https://api.example.com' });
+const { WebhooksApi, Configuration } = require("agents-sdk");
+const config = new Configuration({
+	apiKey: "YOUR_API_KEY",
+	basePath: "https://api.example.com",
+});
 const webhooksApi = new WebhooksApi(config);
 
-webhooksApi.listWebhooks()
-  .then(webhooks => {
-    console.log(`Found ${webhooks.length} webhooks:`);
-    webhooks.forEach(wh => {
-      console.log(`Webhook ${wh.id} -> URL: ${wh.url}, Events: ${wh.events.join(", ")}`);
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching webhooks:', error);
-  });
+webhooksApi
+	.listWebhooks()
+	.then(webhooks => {
+		console.log(`Found ${webhooks.length} webhooks:`);
+		webhooks.forEach(wh => {
+			console.log(
+				`Webhook ${wh.id} -> URL: ${wh.url}, Events: ${wh.events.join(
+					", "
+				)}`
+			);
+		});
+	})
+	.catch(error => {
+		console.error("Error fetching webhooks:", error);
+	});
 ```
 
 ### **`getWebhook(webhookId)`**
@@ -226,7 +245,7 @@ Fetch the configuration details of a single webhook by its ID. Use this to inspe
 
 **Parameters:**
 
-* `webhookId` *(string)* – The unique identifier of the webhook you want to retrieve.
+-   `webhookId` _(string)_ – The unique identifier of the webhook you want to retrieve.
 
 **Returns:** A **Promise** that resolves to a **Webhook** object (see the fields described in `listWebhooks`). If the `webhookId` is not found, the promise may reject with an error (e.g., not found).
 
@@ -251,16 +270,17 @@ webhooksApi.getWebhook(webhookId)
 **Example (JavaScript):**
 
 ```javascript
-const webhookId = 'wh_abc123';  // Replace with your actual webhook ID
+const webhookId = "wh_abc123"; // Replace with your actual webhook ID
 
-webhooksApi.getWebhook(webhookId)
-  .then(webhook => {
-    console.log('Webhook Info:', webhook);
-    // You can access webhook.id, webhook.url, webhook.events, etc.
-  })
-  .catch(error => {
-    console.error('Failed to retrieve webhook:', error);
-  });
+webhooksApi
+	.getWebhook(webhookId)
+	.then(webhook => {
+		console.log("Webhook Info:", webhook);
+		// You can access webhook.id, webhook.url, webhook.events, etc.
+	})
+	.catch(error => {
+		console.error("Failed to retrieve webhook:", error);
+	});
 ```
 
 ### **`createWebhook(url, events, [options])`**
@@ -269,17 +289,17 @@ Register a new webhook. This will set up a callback to the specified URL for the
 
 **Parameters:**
 
-* `url` *(string)* – The endpoint (HTTP URL) that should receive the webhook POST requests when events occur. This should be an endpoint under your control.
+-   `url` _(string)_ – The endpoint (HTTP URL) that should receive the webhook POST requests when events occur. This should be an endpoint under your control.
 
-* `events` *(string\[\])* – An array of event type identifiers that this webhook will subscribe to. Only events in this list will trigger a call to the `url`. (For example: `["AgentResponse", "GuardrailTriggered"]`.)
+-   `events` _(string\[\])_ – An array of event type identifiers that this webhook will subscribe to. Only events in this list will trigger a call to the `url`. (For example: `["AgentResponse", "GuardrailTriggered"]`.)
 
-* `options` *(object, optional)* – Additional optional settings for the webhook:
+-   `options` _(object, optional)_ – Additional optional settings for the webhook:
 
-  * `description` *(string)* – A human-readable description of the webhook’s purpose (for your own record-keeping).
+    -   `description` _(string)_ – A human-readable description of the webhook’s purpose (for your own record-keeping).
 
-  * `secret` *(string)* – A secret token used to sign webhook requests (for verifying the authenticity of incoming webhooks in your server).
+    -   `secret` _(string)_ – A secret token used to sign webhook requests (for verifying the authenticity of incoming webhooks in your server).
 
-  * `active` *(boolean)* – Whether the webhook should be active immediately. Defaults to **true** (active). You can set this to false to create the webhook in a disabled state.
+    -   `active` _(boolean)_ – Whether the webhook should be active immediately. Defaults to **true** (active). You can set this to false to create the webhook in a disabled state.
 
 **What it does:** Creates a new webhook subscription on the server. After creation, any future events of the specified types will result in an HTTP POST request to the given URL with details of the event.
 
@@ -311,21 +331,26 @@ setupWebhook();
 **Example (JavaScript):**
 
 ```javascript
-const callbackUrl = 'https://myapp.com/agent-events';
-const events = ['AgentResponse', 'GuardrailTriggered'];
+const callbackUrl = "https://myapp.com/agent-events";
+const events = ["AgentResponse", "GuardrailTriggered"];
 const options = {
-  description: 'Receive notifications of agent responses and guardrail triggers',
-  secret: 'my-webhook-secret'
+	description:
+		"Receive notifications of agent responses and guardrail triggers",
+	secret: "my-webhook-secret",
 };
 
-webhooksApi.createWebhook(callbackUrl, events, options)
-  .then(newWebhook => {
-    console.log('Created webhook ID:', newWebhook.id);
-    console.log('Webhook is listening for events:', newWebhook.events.join(', '));
-  })
-  .catch(error => {
-    console.error('Failed to create webhook:', error);
-  });
+webhooksApi
+	.createWebhook(callbackUrl, events, options)
+	.then(newWebhook => {
+		console.log("Created webhook ID:", newWebhook.id);
+		console.log(
+			"Webhook is listening for events:",
+			newWebhook.events.join(", ")
+		);
+	})
+	.catch(error => {
+		console.error("Failed to create webhook:", error);
+	});
 ```
 
 In the above example, we created a webhook so that our application (at `myapp.com`) will be notified whenever the agent sends a response or a guardrail is triggered. The `secret` will be used to sign the payload for security. The returned webhook object contains the new `id` which we log for reference.
@@ -336,19 +361,19 @@ Modify an existing webhook’s configuration. Use this to change the URL, events
 
 **Parameters:**
 
-* `webhookId` *(string)* – The unique ID of the webhook you want to update.
+-   `webhookId` _(string)_ – The unique ID of the webhook you want to update.
 
-* `updates` *(object)* – An object specifying the fields to update. You can include one or more of the following:
+-   `updates` _(object)_ – An object specifying the fields to update. You can include one or more of the following:
 
-  * `url` *(string)* – New callback URL if you want to send events to a different endpoint.
+    -   `url` _(string)_ – New callback URL if you want to send events to a different endpoint.
 
-  * `events` *(string\[\])* – New list of event types to subscribe to (replacing the old list).
+    -   `events` _(string\[\])_ – New list of event types to subscribe to (replacing the old list).
 
-  * `description` *(string)* – Updated description.
+    -   `description` _(string)_ – Updated description.
 
-  * `secret` *(string)* – New secret for signing webhooks.
+    -   `secret` _(string)_ – New secret for signing webhooks.
 
-  * `active` *(boolean)* – Set to **true** or **false** to enable/disable the webhook.
+    -   `active` _(boolean)_ – Set to **true** or **false** to enable/disable the webhook.
 
 **What it does:** Sends the updated settings to the server for the specified webhook. Only the fields provided in the `updates` object will be changed; other fields remain as before.
 
@@ -378,17 +403,24 @@ changeWebhookUrl();
 **Example (JavaScript):**
 
 ```javascript
-const webhookId = 'wh_abc123';
+const webhookId = "wh_abc123";
 
 // We'll update the webhook to deactivate it (stop receiving events temporarily)
-webhooksApi.updateWebhook(webhookId, { active: false, description: 'Temporarily disabled' })
-  .then(updatedWebhook => {
-    console.log(`Webhook ${webhookId} is now active?`, updatedWebhook.active);
-    console.log('Updated description:', updatedWebhook.description);
-  })
-  .catch(error => {
-    console.error('Webhook update failed:', error);
-  });
+webhooksApi
+	.updateWebhook(webhookId, {
+		active: false,
+		description: "Temporarily disabled",
+	})
+	.then(updatedWebhook => {
+		console.log(
+			`Webhook ${webhookId} is now active?`,
+			updatedWebhook.active
+		);
+		console.log("Updated description:", updatedWebhook.description);
+	})
+	.catch(error => {
+		console.error("Webhook update failed:", error);
+	});
 ```
 
 In these examples, we demonstrated two types of updates: changing the endpoint URL and events list (TypeScript example), and deactivating the webhook (JavaScript example). After the update, the returned webhook object confirms the new settings.
@@ -399,7 +431,7 @@ Remove a webhook subscription. Call this to stop receiving events at a particula
 
 **Parameters:**
 
-* `webhookId` *(string)* – The unique identifier of the webhook to delete.
+-   `webhookId` _(string)_ – The unique identifier of the webhook to delete.
 
 **What it does:** Permanently deletes the specified webhook from the server. After deletion, no more events will be sent to that webhook’s URL.
 
@@ -422,15 +454,16 @@ webhooksApi.deleteWebhook(webhookId)
 **Example (JavaScript):**
 
 ```javascript
-const webhookId = 'wh_abc123';
+const webhookId = "wh_abc123";
 
-webhooksApi.deleteWebhook(webhookId)
-  .then(() => {
-    console.log('Webhook deleted:', webhookId);
-  })
-  .catch(error => {
-    console.error('Failed to delete webhook:', error);
-  });
+webhooksApi
+	.deleteWebhook(webhookId)
+	.then(() => {
+		console.log("Webhook deleted:", webhookId);
+	})
+	.catch(error => {
+		console.error("Failed to delete webhook:", error);
+	});
 ```
 
 ---
@@ -447,31 +480,31 @@ Retrieve a list of event log entries for a given agent. You can optionally filte
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent whose event logs you want to retrieve.
+-   `agentId` _(string)_ – The unique identifier of the agent whose event logs you want to retrieve.
 
-* `filterOptions` *(object, optional)* – An optional object to filter or limit the logs. You can include:
+-   `filterOptions` _(object, optional)_ – An optional object to filter or limit the logs. You can include:
 
-  * `eventType` *(string)* – Only return logs of this type (e.g., `"AgentResponse"`, `"GuardrailTriggered"`, `"Error"`).
+    -   `eventType` _(string)_ – Only return logs of this type (e.g., `"AgentResponse"`, `"GuardrailTriggered"`, `"Error"`).
 
-  * `fromDate` *(string | Date)* – Only return events that occurred on or after this date/time.
+    -   `fromDate` _(string | Date)_ – Only return events that occurred on or after this date/time.
 
-  * `toDate` *(string | Date)* – Only return events that occurred on or before this date/time.
+    -   `toDate` _(string | Date)_ – Only return events that occurred on or before this date/time.
 
-  * `limit` *(number)* – Maximum number of log entries to return (useful for pagination or fetching recent N events).
+    -   `limit` _(number)_ – Maximum number of log entries to return (useful for pagination or fetching recent N events).
 
 **What it does:** Queries the agent’s event log history and retrieves entries matching the filter. If no filterOptions are provided, it returns recent log events by default (the number may be capped by the system).
 
 **Returns:** A **Promise** that resolves to an array of **EventLog** objects. Each EventLog entry typically includes:
 
-* `id` *(string)* – Unique log entry ID.
+-   `id` _(string)_ – Unique log entry ID.
 
-* `timestamp` *(string)* – When the event occurred (ISO date string).
+-   `timestamp` _(string)_ – When the event occurred (ISO date string).
 
-* `eventType` *(string)* – Type of event (e.g., `"AgentQuery"`, `"AgentResponse"`, `"GuardrailTriggered"`, `"Error"`).
+-   `eventType` _(string)_ – Type of event (e.g., `"AgentQuery"`, `"AgentResponse"`, `"GuardrailTriggered"`, `"Error"`).
 
-* `details` *(object)* – Additional details specific to the event type. For example, for an AgentResponse event, details might include the query asked and the answer given; for a GuardrailTriggered event, details might include which rule was tripped; for an Error, details could include an error message or stack trace.
+-   `details` _(object)_ – Additional details specific to the event type. For example, for an AgentResponse event, details might include the query asked and the answer given; for a GuardrailTriggered event, details might include which rule was tripped; for an Error, details could include an error message or stack trace.
 
-* `userId` *(string, optional)* – If the event is tied to a specific end-user (for example, a query from a user), their identifier if provided.
+-   `userId` _(string, optional)_ – If the event is tied to a specific end-user (for example, a query from a user), their identifier if provided.
 
 **Example (TypeScript):**
 
@@ -489,7 +522,7 @@ async function fetchRecentErrors() {
     const logs = await eventLogsApi.listEventLogs(agentId, { eventType: 'Error', fromDate: oneWeekAgo, limit: 50 });
     console.log(`Retrieved ${logs.length} error events in the past week:`);
     for (const log of logs) {
-      console.log(`[${log.timestamp}] ${log.eventType} - ${log.details.message || log.details}`); 
+      console.log(`[${log.timestamp}] ${log.eventType} - ${log.details.message || log.details}`);
       // If log.details has a message field (for errors), print it
     }
   } catch (err) {
@@ -503,29 +536,39 @@ fetchRecentErrors();
 **Example (JavaScript):**
 
 ```javascript
-const { EventLogsApi, Configuration } = require('agents-sdk');
-const config = new Configuration({ apiKey: 'YOUR_API_KEY', basePath: 'https://api.example.com' });
+const { EventLogsApi, Configuration } = require("agents-sdk");
+const config = new Configuration({
+	apiKey: "YOUR_API_KEY",
+	basePath: "https://api.example.com",
+});
 const eventLogsApi = new EventLogsApi(config);
 
-const agentId = 'agent-12345';
+const agentId = "agent-12345";
 
 // Example: Fetch all guardrail-triggered events for an agent in a date range
-const startDate = '2025-03-01T00:00:00Z';  // ISO date string for March 1, 2025
-const endDate = '2025-03-25T23:59:59Z';    // ISO date string for March 25, 2025 (inclusive)
+const startDate = "2025-03-01T00:00:00Z"; // ISO date string for March 1, 2025
+const endDate = "2025-03-25T23:59:59Z"; // ISO date string for March 25, 2025 (inclusive)
 
-eventLogsApi.listEventLogs(agentId, { eventType: 'GuardrailTriggered', fromDate: startDate, toDate: endDate })
-  .then(logs => {
-    console.log(`Guardrail events from March 1 to 25, 2025: ${logs.length} events`);
-    if (logs.length > 0) {
-      const firstLog = logs[0];
-      console.log('First event type:', firstLog.eventType);
-      console.log('Occurred at:', firstLog.timestamp);
-      console.log('Details:', firstLog.details);
-    }
-  })
-  .catch(error => {
-    console.error('Error retrieving event logs:', error);
-  });
+eventLogsApi
+	.listEventLogs(agentId, {
+		eventType: "GuardrailTriggered",
+		fromDate: startDate,
+		toDate: endDate,
+	})
+	.then(logs => {
+		console.log(
+			`Guardrail events from March 1 to 25, 2025: ${logs.length} events`
+		);
+		if (logs.length > 0) {
+			const firstLog = logs[0];
+			console.log("First event type:", firstLog.eventType);
+			console.log("Occurred at:", firstLog.timestamp);
+			console.log("Details:", firstLog.details);
+		}
+	})
+	.catch(error => {
+		console.error("Error retrieving event logs:", error);
+	});
 ```
 
 In the TypeScript example above, we fetched the last week’s error events for the agent and printed out their timestamps and messages. In the JavaScript example, we retrieved all guardrail-triggered events in a specific date range and displayed information about the first event. You can adjust the filter options as needed (or omit them to get a broad set of logs).
@@ -536,9 +579,9 @@ Get the details of a specific event log entry by its ID. Use this to retrieve fu
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent whose log you want to retrieve. (For context consistency, provide the agentId associated with the event.)
+-   `agentId` _(string)_ – The unique identifier of the agent whose log you want to retrieve. (For context consistency, provide the agentId associated with the event.)
 
-* `eventId` *(string)* – The unique ID of the event log entry you want to fetch.
+-   `eventId` _(string)_ – The unique ID of the event log entry you want to fetch.
 
 **What it does:** Looks up a specific event in the agent’s log by ID and returns its details.
 
@@ -565,17 +608,18 @@ eventLogsApi.getEventLog(agentId, eventId)
 **Example (JavaScript):**
 
 ```javascript
-const agentId = 'agent-12345';
-const eventId = 'log_7890';  // replace with a real event log ID
+const agentId = "agent-12345";
+const eventId = "log_7890"; // replace with a real event log ID
 
-eventLogsApi.getEventLog(agentId, eventId)
-  .then(log => {
-    console.log(`Event ${eventId}:`, log);
-    // For example, log.eventType, log.timestamp, log.details, etc. can be accessed
-  })
-  .catch(error => {
-    console.error('Error fetching event log:', error);
-  });
+eventLogsApi
+	.getEventLog(agentId, eventId)
+	.then(log => {
+		console.log(`Event ${eventId}:`, log);
+		// For example, log.eventType, log.timestamp, log.details, etc. can be accessed
+	})
+	.catch(error => {
+		console.error("Error fetching event log:", error);
+	});
 ```
 
 This method is typically used after you have obtained an event ID from `listEventLogs` or perhaps from a webhook payload, and you want to get the full context of that event. The examples show how to fetch and print the details of one specific log entry.
@@ -598,25 +642,25 @@ List all guardrail rules configured for a given agent. Use this to see what guar
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent whose guardrails you want to retrieve.
+-   `agentId` _(string)_ – The unique identifier of the agent whose guardrails you want to retrieve.
 
 **Returns:** A **Promise** resolving to an array of **Guardrail** objects. Each Guardrail object might include:
 
-* `id` *(string)* – Unique identifier of the guardrail.
+-   `id` _(string)_ – Unique identifier of the guardrail.
 
-* `name` *(string)* – A short name or label for the guardrail rule.
+-   `name` _(string)_ – A short name or label for the guardrail rule.
 
-* `description` *(string)* – A description of what the guardrail does (if provided).
+-   `description` _(string)_ – A description of what the guardrail does (if provided).
 
-* `conditions` *(object)* – The condition(s) that will trigger this guardrail. This could be defined in various ways (e.g., a list of forbidden words, a regex pattern, a ML model for content detection, etc.).
+-   `conditions` _(object)_ – The condition(s) that will trigger this guardrail. This could be defined in various ways (e.g., a list of forbidden words, a regex pattern, a ML model for content detection, etc.).
 
-* `action` *(string)* – The action taken when the guardrail triggers, e.g., `"block"` (prevent the response or input), `"flag"` (mark it but still allow), or `"replace"` (modify the content).
+-   `action` _(string)_ – The action taken when the guardrail triggers, e.g., `"block"` (prevent the response or input), `"flag"` (mark it but still allow), or `"replace"` (modify the content).
 
-* `active` *(boolean)* – Whether the guardrail is currently active/enabled.
+-   `active` _(boolean)_ – Whether the guardrail is currently active/enabled.
 
-* `createdAt` *(Date/string)* – Timestamp when the guardrail was created.
+-   `createdAt` _(Date/string)_ – Timestamp when the guardrail was created.
 
-* `updatedAt` *(Date/string)* – Timestamp of the last update to the guardrail.
+-   `updatedAt` _(Date/string)_ – Timestamp of the last update to the guardrail.
 
 **Example (TypeScript):**
 
@@ -645,22 +689,30 @@ showGuardrails();
 **Example (JavaScript):**
 
 ```javascript
-const { GuardrailsApi, Configuration } = require('agents-sdk');
-const config = new Configuration({ apiKey: 'YOUR_API_KEY', basePath: 'https://api.example.com' });
+const { GuardrailsApi, Configuration } = require("agents-sdk");
+const config = new Configuration({
+	apiKey: "YOUR_API_KEY",
+	basePath: "https://api.example.com",
+});
 const guardrailsApi = new GuardrailsApi(config);
 
-const agentId = 'agent-12345';
+const agentId = "agent-12345";
 
-guardrailsApi.listGuardrails(agentId)
-  .then(rules => {
-    console.log(`Found ${rules.length} guardrails for agent ${agentId}.`);
-    for (const rule of rules) {
-      console.log(`Guardrail "${rule.name}" is ${rule.active ? 'enabled' : 'disabled'}.`);
-    }
-  })
-  .catch(error => {
-    console.error('Error retrieving guardrails:', error);
-  });
+guardrailsApi
+	.listGuardrails(agentId)
+	.then(rules => {
+		console.log(`Found ${rules.length} guardrails for agent ${agentId}.`);
+		for (const rule of rules) {
+			console.log(
+				`Guardrail "${rule.name}" is ${
+					rule.active ? "enabled" : "disabled"
+				}.`
+			);
+		}
+	})
+	.catch(error => {
+		console.error("Error retrieving guardrails:", error);
+	});
 ```
 
 The examples above retrieve all guardrails for a specific agent and log each guardrail’s name and whether it’s active. This helps in understanding what safety measures are currently in place for the agent.
@@ -671,19 +723,19 @@ Create a new guardrail rule for an agent. Use this to add a safety rule that the
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent for which to create the guardrail.
+-   `agentId` _(string)_ – The unique identifier of the agent for which to create the guardrail.
 
-* `guardrailConfig` *(object)* – An object defining the guardrail’s settings. This includes:
+-   `guardrailConfig` _(object)_ – An object defining the guardrail’s settings. This includes:
 
-  * `name` *(string)* – A name for the guardrail (for reference).
+    -   `name` _(string)_ – A name for the guardrail (for reference).
 
-  * `description` *(string, optional)* – A longer description of what the guardrail checks or why it's in place.
+    -   `description` _(string, optional)_ – A longer description of what the guardrail checks or why it's in place.
 
-  * `conditions` *(object)* – Definition of the condition that triggers the guardrail. For example, this might specify a set of banned words, a regex pattern, or a reference to a predefined policy. *(The exact structure depends on the system’s rule language.)*
+    -   `conditions` _(object)_ – Definition of the condition that triggers the guardrail. For example, this might specify a set of banned words, a regex pattern, or a reference to a predefined policy. _(The exact structure depends on the system’s rule language.)_
 
-  * `action` *(string)* – What action to take when the condition is met. Common values could be `"block"` (block the input/output and possibly return an error or safe response), `"flag"` (mark it in logs and allow execution to continue), or `"notify"` (send an alert).
+    -   `action` _(string)_ – What action to take when the condition is met. Common values could be `"block"` (block the input/output and possibly return an error or safe response), `"flag"` (mark it in logs and allow execution to continue), or `"notify"` (send an alert).
 
-  * `active` *(boolean, optional)* – Whether the guardrail is active immediately upon creation. Defaults to **true**.
+    -   `active` _(boolean, optional)_ – Whether the guardrail is active immediately upon creation. Defaults to **true**.
 
 **What it does:** Sends the guardrail configuration to the server to be added to the agent. Once created and active, the agent will enforce this guardrail on relevant interactions (inputs or outputs) going forward.
 
@@ -721,24 +773,29 @@ addGuardrail();
 **Example (JavaScript):**
 
 ```javascript
-const agentId = 'agent-12345';
+const agentId = "agent-12345";
 
 // Create a guardrail that flags any answer longer than 1000 characters
 const guardrailConfig = {
-  name: 'Response Length Check',
-  description: 'Flag extremely long responses for review.',
-  conditions: { maxOutputLength: 1000 },  // hypothetical condition
-  action: 'flag'
+	name: "Response Length Check",
+	description: "Flag extremely long responses for review.",
+	conditions: { maxOutputLength: 1000 }, // hypothetical condition
+	action: "flag",
 };
 
-guardrailsApi.createGuardrail(agentId, guardrailConfig)
-  .then(newGuardrail => {
-    console.log('New guardrail created with ID:', newGuardrail.id);
-    console.log(`Guardrail "${newGuardrail.name}" is now ${newGuardrail.active ? 'active' : 'inactive'}.`);
-  })
-  .catch(error => {
-    console.error('Error creating guardrail:', error);
-  });
+guardrailsApi
+	.createGuardrail(agentId, guardrailConfig)
+	.then(newGuardrail => {
+		console.log("New guardrail created with ID:", newGuardrail.id);
+		console.log(
+			`Guardrail "${newGuardrail.name}" is now ${
+				newGuardrail.active ? "active" : "inactive"
+			}.`
+		);
+	})
+	.catch(error => {
+		console.error("Error creating guardrail:", error);
+	});
 ```
 
 In the TypeScript example, we added a guardrail to block profanity by listing banned words. In the JavaScript example, we added a guardrail to flag overly long responses. The returned objects include the unique IDs and the active status of the new guardrails. These guardrails will start applying to the agent’s interactions immediately (since we did not set `active: false`).
@@ -749,9 +806,9 @@ Retrieve details of a specific guardrail rule by its ID. Use this to inspect a g
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent that the guardrail belongs to.
+-   `agentId` _(string)_ – The unique identifier of the agent that the guardrail belongs to.
 
-* `guardrailId` *(string)* – The unique identifier of the guardrail you want to fetch.
+-   `guardrailId` _(string)_ – The unique identifier of the guardrail you want to fetch.
 
 **Returns:** A **Promise** resolving to a **Guardrail** object with the guardrail’s details (`id`, `name`, `description`, `conditions`, `action`, `active`, etc.). If the guardrail is not found (for that agent), the promise will reject with an error.
 
@@ -777,17 +834,18 @@ guardrailsApi.getGuardrail(agentId, guardrailId)
 **Example (JavaScript):**
 
 ```javascript
-const agentId = 'agent-12345';
-const guardrailId = 'gr_4567';  // replace with a real guardrail ID
+const agentId = "agent-12345";
+const guardrailId = "gr_4567"; // replace with a real guardrail ID
 
-guardrailsApi.getGuardrail(agentId, guardrailId)
-  .then(guardrail => {
-    console.log(`Guardrail ${guardrailId} details:`, guardrail);
-    // For example, guardrail.name, guardrail.conditions, guardrail.action, etc.
-  })
-  .catch(error => {
-    console.error('Failed to get guardrail:', error);
-  });
+guardrailsApi
+	.getGuardrail(agentId, guardrailId)
+	.then(guardrail => {
+		console.log(`Guardrail ${guardrailId} details:`, guardrail);
+		// For example, guardrail.name, guardrail.conditions, guardrail.action, etc.
+	})
+	.catch(error => {
+		console.error("Failed to get guardrail:", error);
+	});
 ```
 
 This will output the details of the specified guardrail, allowing you to verify what rules are in place. For instance, you might check what words are banned or what action is defined.
@@ -798,21 +856,21 @@ Update an existing guardrail’s configuration. Use this to change a guardrail�
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent that the guardrail belongs to.
+-   `agentId` _(string)_ – The unique identifier of the agent that the guardrail belongs to.
 
-* `guardrailId` *(string)* – The ID of the guardrail to update.
+-   `guardrailId` _(string)_ – The ID of the guardrail to update.
 
-* `updates` *(object)* – An object specifying which fields to update and their new values. You can include:
+-   `updates` _(object)_ – An object specifying which fields to update and their new values. You can include:
 
-  * `name` *(string)* – A new name for the guardrail.
+    -   `name` _(string)_ – A new name for the guardrail.
 
-  * `description` *(string)* – An updated description.
+    -   `description` _(string)_ – An updated description.
 
-  * `conditions` *(object)* – Updated conditions for triggering the guardrail (for example, modify the list of banned words, change a threshold, etc.).
+    -   `conditions` _(object)_ – Updated conditions for triggering the guardrail (for example, modify the list of banned words, change a threshold, etc.).
 
-  * `action` *(string)* – Change the action (e.g., switch from `"flag"` to `"block"`).
+    -   `action` _(string)_ – Change the action (e.g., switch from `"flag"` to `"block"`).
 
-  * `active` *(boolean)* – Enable or disable the guardrail.
+    -   `active` _(boolean)_ – Enable or disable the guardrail.
 
 **What it does:** Submits the changes to the server for the specified guardrail. Only the provided fields are changed; any fields not included in `updates` remain as they were.
 
@@ -826,7 +884,7 @@ const guardrailId: string = 'gr_4567';
 
 async function disableGuardrail() {
   try {
-    const updated = await guardrailsApi.updateGuardrail(agentId, guardrailId, { 
+    const updated = await guardrailsApi.updateGuardrail(agentId, guardrailId, {
       active: false,
       description: 'Temporarily disabled this guardrail'
     });
@@ -842,29 +900,35 @@ disableGuardrail();
 **Example (JavaScript):**
 
 ```javascript
-const agentId = 'agent-12345';
-const guardrailId = 'gr_4567';
+const agentId = "agent-12345";
+const guardrailId = "gr_4567";
 
 // Example: Add a new word to the banned words list of a guardrail
-guardrailsApi.getGuardrail(agentId, guardrailId)
-  .then(rule => {
-    if (rule.conditions.bannedWords) {
-      // Append a new word to bannedWords list
-      const newConditions = { ...rule.conditions };
-      newConditions.bannedWords.push('qux');
-      return guardrailsApi.updateGuardrail(agentId, guardrailId, { conditions: newConditions });
-    } else {
-      console.log('Guardrail has no bannedWords condition to update.');
-    }
-  })
-  .then(updatedRule => {
-    if (updatedRule) {
-      console.log('Updated guardrail conditions:', updatedRule.conditions);
-    }
-  })
-  .catch(error => {
-    console.error('Failed to update guardrail:', error);
-  });
+guardrailsApi
+	.getGuardrail(agentId, guardrailId)
+	.then(rule => {
+		if (rule.conditions.bannedWords) {
+			// Append a new word to bannedWords list
+			const newConditions = { ...rule.conditions };
+			newConditions.bannedWords.push("qux");
+			return guardrailsApi.updateGuardrail(agentId, guardrailId, {
+				conditions: newConditions,
+			});
+		} else {
+			console.log("Guardrail has no bannedWords condition to update.");
+		}
+	})
+	.then(updatedRule => {
+		if (updatedRule) {
+			console.log(
+				"Updated guardrail conditions:",
+				updatedRule.conditions
+			);
+		}
+	})
+	.catch(error => {
+		console.error("Failed to update guardrail:", error);
+	});
 ```
 
 In the TypeScript example, we disabled a guardrail (perhaps for maintenance or testing) and updated its description to note it’s disabled. In the JavaScript example, we first fetched a guardrail, then updated its conditions by adding a new banned word (demonstrating how you might modify a nested condition structure). The updated guardrail object returned lets us verify the changes.
@@ -875,9 +939,9 @@ Delete a guardrail from an agent. This permanently removes the rule, so the agen
 
 **Parameters:**
 
-* `agentId` *(string)* – The unique identifier of the agent from which to remove the guardrail.
+-   `agentId` _(string)_ – The unique identifier of the agent from which to remove the guardrail.
 
-* `guardrailId` *(string)* – The unique identifier of the guardrail to delete.
+-   `guardrailId` _(string)_ – The unique identifier of the guardrail to delete.
 
 **What it does:** Removes the guardrail rule from the agent’s configuration on the server.
 
@@ -901,16 +965,17 @@ guardrailsApi.deleteGuardrail(agentId, guardrailId)
 **Example (JavaScript):**
 
 ```javascript
-const agentId = 'agent-12345';
-const guardrailId = 'gr_4567';
+const agentId = "agent-12345";
+const guardrailId = "gr_4567";
 
-guardrailsApi.deleteGuardrail(agentId, guardrailId)
-  .then(() => {
-    console.log('Deleted guardrail:', guardrailId);
-  })
-  .catch(error => {
-    console.error('Failed to delete guardrail:', error);
-  });
+guardrailsApi
+	.deleteGuardrail(agentId, guardrailId)
+	.then(() => {
+		console.log("Deleted guardrail:", guardrailId);
+	})
+	.catch(error => {
+		console.error("Failed to delete guardrail:", error);
+	});
 ```
 
 After calling this, the specified guardrail will no longer be in effect. If you need to enforce that rule again in the future, you would have to create a new guardrail.
@@ -918,4 +983,3 @@ After calling this, the specified guardrail will no longer be in effect. If you 
 ---
 
 **Conclusion:** Using the above APIs (Query, Webhooks, Event Logs, and Guardrails), you can fully manage your agents programmatically. Always ensure you initialize the SDK with the correct configuration (API key and base path) before calling these methods. The examples provided illustrate common day-to-day usage scenarios in both TypeScript and JavaScript, which you can adapt to your application’s needs. By combining these APIs, you can query agents for information, get notified of important events in real time, review past interactions, and enforce important rules to guide agent behavior. Happy coding with the Agent Management SDK\!
-
