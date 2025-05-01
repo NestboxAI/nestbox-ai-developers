@@ -21,3 +21,7 @@ yarn-error.log*
 
 #
 /specs
+/docs/api-reference/admin
+/docs/api-reference/agents
+/docs/api-reference/documents
+/docs/api-reference/instances
