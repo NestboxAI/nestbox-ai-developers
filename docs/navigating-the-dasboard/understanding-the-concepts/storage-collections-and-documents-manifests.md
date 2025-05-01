@@ -5,11 +5,11 @@ sidebar_position: 3
 
 # Storage, Collections and Documents & Manifests
 
-Nestbox provides a robust document management system designed specifically for Retrieval-Augmented Generation (RAG) applications. It allows you to store, embed, and search documents efficiently, while remaining fully backend-agnostic — giving you the flexibility to work with any vector database or parsing pipeline.
+<SiteName/> provides a robust document management system designed specifically for Retrieval-Augmented Generation (RAG) applications. It allows you to store, embed, and search documents efficiently, while remaining fully backend-agnostic — giving you the flexibility to work with any vector database or parsing pipeline.
 
 ## Storage
 
-In Nestbox, **Storage** refers to the system that manages your deployed document databases, collections, and the documents inside them.
+In <SiteName/>, **Storage** refers to the system that manages your deployed document databases, collections, and the documents inside them.
 Each project can connect to one or more document instances (such as ChromaDB) for storing and retrieving embedded documents.
 
 ## Document Instances

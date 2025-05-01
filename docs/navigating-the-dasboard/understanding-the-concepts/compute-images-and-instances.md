@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # Compute, Images and Instances
 
-Nestbox provides a flexible and powerful compute system that allows you to deploy and manage AI models, vector databases, and other services as instances based on predefined machine images. This section explains how compute resources are organized and how to create and manage them.
+<SiteName/> provides a flexible and powerful compute system that allows you to deploy and manage AI models, vector databases, and other services as instances based on predefined machine images. This section explains how compute resources are organized and how to create and manage them.
 
 ## Machine Images
 
@@ -24,9 +24,9 @@ Each instance is isolated within your project, ensuring that your operations are
 
 ## The Compute Tab
 
-The **Compute tab** in the Nestbox dashboard brings these elements together:
+The **Compute tab** in the <SiteName/> dashboard brings these elements together:
 
 -   Under **Machine Images**, you can browse all available blueprints ready to deploy.
 -   Under **Runtime Instances**, you can manage all the services currently running in your project.
 
-This setup provides a simple but powerful way to extend your AI workflows by dynamically adding specialized models, tools, and infrastructure — all from within the Nestbox ecosystem.
+This setup provides a simple but powerful way to extend your AI workflows by dynamically adding specialized models, tools, and infrastructure — all from within the <SiteName/> ecosystem.

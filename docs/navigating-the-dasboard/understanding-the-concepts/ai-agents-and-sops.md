@@ -5,11 +5,11 @@ sidebar_position: 4
 
 # AI Agents and SOPs
 
-Nestbox enables you to create intelligent, goal-driven AI agents that can perform tasks, automate workflows, and assist users based on structured knowledge and operational procedures.
+<SiteName/> enables you to create intelligent, goal-driven AI agents that can perform tasks, automate workflows, and assist users based on structured knowledge and operational procedures.
 
 ## AI Agents
 
-An **AI Agent** in Nestbox represents an autonomous entity capable of understanding user inputs, retrieving relevant information, and performing actions according to configured rules.
+An **AI Agent** in <SiteName/> represents an autonomous entity capable of understanding user inputs, retrieving relevant information, and performing actions according to configured rules.
 Agents typically combine several capabilities:
 
 -   **Understanding queries** (natural language processing)

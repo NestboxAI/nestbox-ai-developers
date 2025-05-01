@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # For Storing Documents DB
 
-In Nestbox, document storage and retrieval are handled by deploying dedicated vector database instances, such as ChromaDB.
+In <SiteName/>, document storage and retrieval are handled by deploying dedicated vector database instances, such as ChromaDB.
 These databases allow you to store documents as vector embeddings and perform efficient similarity searches across your content.
 
 This guide walks you through the general process of:

@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # For Running Agents
 
-In Nestbox, AI agents allow you to build custom, intelligent workflows by combining a large language model with your own business logic and prompt design. This guide covers how to create, configure, and properly run an agent, including how to test it and capture responses through webhooks.
+In <SiteName/>, AI agents allow you to build custom, intelligent workflows by combining a large language model with your own business logic and prompt design. This guide covers how to create, configure, and properly run an agent, including how to test it and capture responses through webhooks.
 
 ## 1. Creating an Agent
 

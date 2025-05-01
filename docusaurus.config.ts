@@ -3,11 +3,13 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs";
 
+import siteConfig from "./siteConfig";
+
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-	title: "Nestbox AI - Developers",
-	tagline: "Nestbox AI - Developers",
+	title: `${siteConfig.siteName} - Developers`,
+	tagline: `${siteConfig.siteName} - Developers`,
 	favicon: "img/favicon.ico",
 
 	// Set the production url of your site here
@@ -96,9 +98,9 @@ const config: Config = {
 		// Replace with your project's social card
 		image: "img/docusaurus-social-card.jpg",
 		navbar: {
-			title: "Nestbox AI",
+			title: siteConfig.siteName,
 			logo: {
-				alt: "Nestbox AI",
+				alt: siteConfig.siteName,
 				src: "img/favicon/android-chrome-512x512.png",
 			},
 			items: [
@@ -115,8 +117,8 @@ const config: Config = {
 				},
 				{ to: "/blog", label: "Blog", position: "left" },
 				{
-					href: "https://nestbox.ai/",
-					label: "Nestbox Website",
+					href: siteConfig.siteLandingURL,
+					label: `${siteConfig.siteName} Website`,
 					position: "right",
 				},
 				{
@@ -134,7 +136,7 @@ const config: Config = {
 					items: [
 						{
 							label: "Docs & Tools",
-							to: "/docs/welcome-to-the-nestbox-ai-developer-portal",
+							to: "/docs/docs/welcome-to-the-developer-portal",
 						},
 						{
 							label: "API Reference",
@@ -147,7 +149,7 @@ const config: Config = {
 					items: [
 						{
 							label: "Stack Overflow",
-							href: "https://stackoverflow.com/questions/tagged/nestboxai",
+							href: `https://stackoverflow.com/questions/tagged/${siteConfig.stackOverflowTag}`,
 						},
 					],
 				},
@@ -160,12 +162,14 @@ const config: Config = {
 						},
 						{
 							label: "GitHub",
-							href: "https://github.com/NestboxAI/",
+							href: siteConfig.githubURL,
 						},
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()} Nestbox AI for Developers.`,
+			copyright: `Copyright © ${new Date().getFullYear()} ${
+				siteConfig.siteName
+			} for Developers.`,
 		},
 		prism: {
 			theme: prismThemes.github,

@@ -5,7 +5,7 @@ sidebar_position: 4
 
 # Inviting Team members
 
-Each project in Nestbox has its own dedicated team. You can invite collaborators to your project by sending them an email invitation, assigning them a role that controls their access permissions.
+Each project in <SiteName/> has its own dedicated team. You can invite collaborators to your project by sending them an email invitation, assigning them a role that controls their access permissions.
 
 ## How to Invite a Team Member
 

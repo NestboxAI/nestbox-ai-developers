@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # Creating a new project
 
-In Nestbox, a Project is an isolated workspace that contains its own team members, resources, compute instances, document storage, AI agents, and workflows.
+In <SiteName/>, a Project is an isolated workspace that contains its own team members, resources, compute instances, document storage, AI agents, and workflows.
 Each project is completely separate from others, allowing you to manage different initiatives, environments, or clients independently.
 
 ## How to create a Project

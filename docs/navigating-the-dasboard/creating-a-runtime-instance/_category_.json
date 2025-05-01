@@ -3,6 +3,6 @@
   "position": 5,
   "link": {
     "type": "generated-index",
-    "description": "The 'Creating a Runtime Instance' section explains how to deploy and configure machine instances based on pre-built images. These instances provide the compute and services needed to power databases, models, and agents across your Nestbox projects."
+    "description": "The 'Creating a Runtime Instance' section explains how to deploy and configure machine instances based on pre-built images. These instances provide the compute and services needed to power databases, models, and agents across your projects."
   }
 }
