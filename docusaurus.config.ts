@@ -13,7 +13,7 @@ const config: Config = {
 	favicon: "img/favicon.ico",
 
 	// Set the production url of your site here
-	url: "https://developers.nestbox.ai",
+	url: siteConfig.productionURL,
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
 	baseUrl: "/",
@@ -122,7 +122,7 @@ const config: Config = {
 					position: "right",
 				},
 				{
-					href: "https://github.com/NestboxAI/",
+					href: siteConfig.githubURL,
 					label: "GitHub",
 					position: "right",
 				},

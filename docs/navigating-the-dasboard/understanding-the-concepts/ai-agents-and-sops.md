@@ -36,7 +36,7 @@ SOPs can define:
 -   Validation rules before actions are taken
 -   How to escalate or respond if certain conditions are met
 
-By using SOPs, Nestbox allows you to:
+By using SOPs, <SiteName/> allows you to:
 
 -   Encode business logic into your AI agents
 -   Ensure operational consistency across different agents and projects

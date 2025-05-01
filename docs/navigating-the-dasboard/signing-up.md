@@ -7,7 +7,7 @@ Before you can start exploring the <SiteName/> Dashboard and deploying AI agents
 
 ## How to Sign Up
 
-### 1. Visit the Nestbox Dashboard
+### 1. Visit the <SiteName/> Dashboard
 
 Go to the <DashboardURL/>.
 
