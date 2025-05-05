@@ -1,0 +1,8 @@
+{
+  "label": "Understanding the Concepts",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Before working with the platform, it's important to understand the key concepts and terminology used across the platform. This section introduces the core ideas behind projects, agents, datasets, and other essential components to help you navigate and build effectively."
+  }
+}
