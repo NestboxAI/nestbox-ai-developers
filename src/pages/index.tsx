@@ -13,10 +13,10 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading style={{maxWidth: "30ch", margin: "auto"}} as="h1" className="hero__title">
-          Welcome to the {siteConfig.siteName} Developer Portal!
+          Welcome, {siteConfig.siteName} Developers!
         </Heading>
         <br />
-        <p style={{maxWidth: "60ch", margin: "auto"}} className="hero__subtitle">The place for developers to explore and master {siteConfig.siteName} tools, helping you understand and integrate AI solutions with ease.</p>
+        <p style={{maxWidth: "60ch", margin: "auto"}} className="hero__subtitle">The place for developers to explore and master {siteConfig.siteName} tools, helping you understand and build AI-Native solutions with ease.</p>
         <br />
         <div className={styles.buttons}>
           <Link
