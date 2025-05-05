@@ -12,7 +12,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Advanced Document Intelligence',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/icons/brain-icon.svg').default,
     description: (
       <>
         Efficiently parse, catalog, tag, store, and manage large-scale document sets.
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Seamless Agent Integration',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/icons/link-icon.svg').default,
     description: (
       <>
         Easily create, customize, and deploy AI agents capable of autonomously executing operations via seamless third-party integrations. 
@@ -32,7 +32,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Developer-First Experience',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/icons/code-icon.svg').default,
     description: (
       <>
         Designed with developers in mind: intuitive SDKs, comprehensive APIs, robust CLI tools, and thorough documentation.
