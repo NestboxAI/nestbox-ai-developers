@@ -7,25 +7,28 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 import siteConfig from "@site/siteConfig";
+import CopyCommandBox from '../components/CopyCommandBox/CopyCommandBox';
 
 function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading style={{maxWidth: "30ch", margin: "auto"}} as="h1" className="hero__title">
+        <Heading className={clsx("hero__title", styles.heading)} as="h1" >
           Welcome, {siteConfig.siteName} Developers!
         </Heading>
         <br />
-        <p style={{maxWidth: "60ch", margin: "auto"}} className="hero__subtitle">The place for developers to explore and master {siteConfig.siteName} tools, helping you understand and build AI-Native solutions with ease.</p>
+        <p className={clsx("hero__subtitle", styles.subHeading)}>The place for developers to explore and master {siteConfig.siteName} tools, helping you understand and build AI-Native solutions with ease.</p>
         <br />
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/welcome-to-the-developer-portal">
-            Get Started
-          </Link>
+        <div className={styles.ctaContainer}>
+          <div>
+            <Link
+              className="button button--secondary button--lg"
+              to="/docs/welcome-to-the-developer-portal">
+              Get Started
+            </Link>
+          </div>
+          <CopyCommandBox command="npm install -g @nestbox-ai/cli" />
         </div>
-        
       </div>
     </header>
   );
