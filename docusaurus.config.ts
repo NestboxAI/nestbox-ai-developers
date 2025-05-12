@@ -123,15 +123,12 @@ const config: Config = {
 				},
 				{ to: "/blog", label: "Blog", position: "left" },
 				{
-					href: siteConfig.siteLandingURL,
-					label: `${siteConfig.siteName} Website`,
-					position: "right",
-				},
-				{
 					href: siteConfig.githubURL,
-					label: "GitHub",
 					position: "right",
-				},
+					className: "header-github-link",
+					'aria-label': "GitHub repository",
+				  }
+				  
 			],
 		},
 		footer: {
@@ -162,6 +159,11 @@ const config: Config = {
 				{
 					title: "More",
 					items: [
+						{
+							href: siteConfig.siteLandingURL,
+							label: `${siteConfig.siteName} Website`,
+							position: "right",
+						},
 						{
 							label: "Blog",
 							to: "/blog",
