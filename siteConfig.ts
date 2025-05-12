@@ -5,6 +5,8 @@ interface SiteConfig {
 	githubURL: string;
 	stackOverflowTag: string;
 	productionURL: string;
+	cliPackageName: string;
+	cliCommand: string;
 }
 
 const config: SiteConfig = {
@@ -14,6 +16,8 @@ const config: SiteConfig = {
 	productionURL: "https://developers.nestbox.ai",
 	githubURL: "https://github.com/NestboxAI/",
 	stackOverflowTag: "nestboxai",
+	cliPackageName: "@nestbox-ai/cli",
+	cliCommand: "nestbox",
 };
 
 export default config;

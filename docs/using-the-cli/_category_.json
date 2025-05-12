@@ -3,6 +3,6 @@
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "5 minutes to learn the most important Docusaurus concepts."
+    "description": "Get started with installing the CLI tool, configuring authentication, and preparing your environment. This section covers the essential setup required before running any commands."
   }
 }

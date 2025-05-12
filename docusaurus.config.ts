@@ -90,6 +90,12 @@ const config: Config = {
 				},
 			},
 		],
+		[
+			"docusaurus-lunr-search",
+			{
+				languages: ["en"],
+			},
+		],
 	],
 
 	themes: ["docusaurus-theme-openapi-docs"],

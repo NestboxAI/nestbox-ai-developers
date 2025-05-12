@@ -1,0 +1,110 @@
+---
+title: Documents
+sidebar_position: 5
+---
+
+import config from "../../../siteConfig"
+
+This page describes all commands in the <SiteName /> CLI for managing documents and collections. Documents are organized into collections and can be individually uploaded, updated, retrieved, or deleted. These commands also support full-text and semantic search.
+
+## List Collections
+
+List all document collections available in the current project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection list`}
+  </code>
+</pre>
+
+## Create a Collection
+
+Create a new document collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection create --name "<collection-name>"`}
+  </code>
+</pre>
+
+You can include metadata like description, configuration settings, or indexes when applicable.
+
+## Update a Collection
+
+Update metadata for an existing collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection update --id <collection-id> --name "<new-name>"`}
+  </code>
+</pre>
+
+## Delete a Collection
+
+Permanently delete a document collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection delete --id <collection-id>`}
+  </code>
+</pre>
+
+## Add a Document
+
+Create a new document by passing a JSON object directly:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc add --collection <collection-id> --data '{ "title": "Doc Title", "body": "Content" }'`}
+  </code>
+</pre>
+
+## Upload a File
+
+Upload a file and register it as a document in a collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc upload-file --collection <collection-id> --file ./example.pdf`}
+  </code>
+</pre>
+
+## Get a Document
+
+Fetch a document by its ID:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc get --id <document-id>`}
+  </code>
+</pre>
+
+## Update a Document
+
+Update the contents of a document:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc update --id <document-id> --data '{ "title": "Updated Title" }'`}
+  </code>
+</pre>
+
+## Delete a Document
+
+Remove a document by ID:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc delete --id <document-id>`}
+  </code>
+</pre>
+
+## Search Documents
+
+Perform a semantic or keyword-based search:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document search --collection <collection-id> --query "search terms"`}
+  </code>
+</pre>

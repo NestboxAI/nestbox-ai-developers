@@ -1,0 +1,81 @@
+---
+title: Installation and Authentication
+sidebar_position: 2
+---
+import config from "../../siteConfig"
+
+This guide explains how to install the <SiteName/> CLI and authenticate with a <SiteName/> deployment. These steps are required before you can begin managing projects, agents, or compute instances using the CLI.
+
+## Installation
+
+To install the <SiteName/> CLI globally using npm, run the following command:
+
+<pre>
+    <code className="language-bash">
+        {`npm install -g ${config.cliPackageName}`}
+    </code>
+</pre>
+
+
+This installs the CLI tool system-wide so that the <code><CliCommand /></code> command is available in your terminal. You only need to do this once. Once installed, you can verify that the CLI is working by running:
+
+<pre>
+    <code className="language-bash">
+        {`${config.cliCommand} --help`}
+    </code>
+</pre>
+
+This will display the list of available commands and options.
+
+:::note
+The CLI requires Node.js version 16 or higher.
+:::
+
+## Authentication
+
+Before you can interact with the <SiteName/> platform, you must authenticate with a specific <SiteName/> deployment (such as a production server or a local development instance).
+
+### Logging in
+
+Use the login command to authenticate:
+
+<pre>
+    <code className="language-bash">
+        {`${config.cliCommand} login <${config.cliCommand}-domain>`}
+    </code>
+</pre>
+
+
+Replace  <code>&lt;<CliCommand />-domain&gt;</code>  with the domain of the <SiteName/> instance you want to access. For example:
+
+<pre>
+    <code className="language-bash">
+        {`${config.cliCommand} login demo.${config.cliCommand}.ai`} 
+        <br/>
+        {`${config.cliCommand} login localhost:3000`}
+    </code>
+</pre>
+
+After running the login command, the CLI will open a browser window where you’ll be prompted to choose your account or log in. Once you approve access, the browser will display a one-time authentication token. Copy this token, return to your terminal, and paste it when prompted by the CLI. This token is then used to securely authenticate your session.
+
+After login, your credentials are saved in the following location:
+
+<pre>
+    <code className="language-bash">
+        {`~/.config/.${config.cliCommand}/<user_email>_<domain>.json`}
+    </code>
+</pre>
+
+This allows the CLI to authenticate your future requests without requiring you to re-enter credentials.
+
+### Logging out
+
+To remove the saved token and log out from a specific domain, run:
+
+<pre>
+    <code className="language-bash">
+        {`${config.cliCommand} logout <${config.cliCommand}-domain>`}
+    </code>
+</pre>
+
+

@@ -1,0 +1,102 @@
+---
+title: Agents
+sidebar_position: 4
+---
+
+import config from "../../../siteConfig"
+
+This page covers all commands related to agent management in the <SiteName /> CLI. Agents are at the core of the platform and represent deployable AI logic. This section includes commands for generating, creating, deploying, listing, removing agents, and monitoring their runtime events.
+
+## Generate Agent Structure
+
+Scaffold a new agent directory structure with optional language and template parameters:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent generate <folder> --lang=ts --template=basic`}
+  </code>
+</pre>
+
+You can also specify the Node.js version and the project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent generate <folder> --lang=js --version=20 --project <project-id>`}
+  </code>
+</pre>
+
+## Create an Agent
+
+Create a new agent on a specific compute instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent create <agent-name> --parameters=name,string,default --instance <instance-id>`}
+  </code>
+</pre>
+
+Use the <code>--project</code> flag to associate the agent with a specific project if needed.
+
+## List Agents
+
+List all agents running on a given compute instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent list --instance <instance-id>`}
+  </code>
+</pre>
+
+To list agents in another project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent list --instance <instance-id> --project <project-id>`}
+  </code>
+</pre>
+
+## Deploy an Agent
+
+Deploy an agent from your local directory to a running instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent deploy <agent-id> --instance <instance-id>`}
+  </code>
+</pre>
+
+The CLI will:
+- Find the project root
+- Run pre-deploy scripts defined in <code>{`${config.cliCommand}.config.json`}</code>
+- Zip the directory (excluding <code>node_modules</code>)
+- Trigger the deployment
+
+## Remove an Agent
+
+Remove an agent from an instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent remove --instance <instance-id> <agent-id>`}
+  </code>
+</pre>
+
+The CLI will prompt for confirmation before removing the agent.
+
+## Monitor Agent Events
+
+Stream recent logs or events emitted by an agent:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent events <agent-id>`}
+  </code>
+</pre>
+
+To view only the latest N entries:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent events <agent-id> --tail 100`}
+  </code>
+</pre>
