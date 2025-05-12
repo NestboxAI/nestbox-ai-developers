@@ -1,0 +1,56 @@
+---
+title: Document Workflow
+sidebar_position: 2
+---
+
+import config from "../../../siteConfig"
+
+This workflow demonstrates how to work with documents using the <SiteName /> CLI. It covers listing collections, creating a new one with metadata, uploading structured content and files, and running semantic search.
+
+## Step 1: List Collections
+
+Check what collections already exist for your project and instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection list --project myProject123 --instance myInstance456`}
+  </code>
+</pre>
+
+## Step 2: Create Collection
+
+Create a new document collection with a name, description, and metadata:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection create --project myProject123 --instance myInstance456 --name "Marketing Documents" --description "Collection for storing all marketing materials." --metadata '{"department": "Marketing", "type": "documents"}'`}
+  </code>
+</pre>
+
+## Step 3: Add Documents
+
+Add a structured document directly with JSON data:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc add --project myProject123 --instance myInstance456 --collection marketingDocsCollection --data '{"title": "Q1 Marketing Strategy", "content": "This document outlines the marketing strategy for Q1."}'`}
+  </code>
+</pre>
+
+Upload a file to the same collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc upload-file --project myProject123 --instance myInstance456 --collection marketingDocsCollection --file "/path/to/marketing_report.pdf"`}
+  </code>
+</pre>
+
+## Step 4: Search
+
+Search the collection semantically using a query and an optional filter:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document search --project myProject123 --instance myInstance456 --collection marketingDocsCollection --query "Marketing Strategy" --topK 3 --filter '{"department": "Marketing"}'`}
+  </code>
+</pre>

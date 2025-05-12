@@ -1,0 +1,8 @@
+{
+  "label": "Workflows",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This section provides end-to-end examples that show how to use the CLI to accomplish common tasks. Each workflow combines multiple commands into a practical sequence, demonstrating real-world usage for agent deployment and document management."
+  }
+}
