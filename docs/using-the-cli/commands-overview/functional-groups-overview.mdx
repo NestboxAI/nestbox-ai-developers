@@ -1,0 +1,26 @@
+---
+title: Functional Groups Overview
+sidebar_position: 1
+---
+
+The <SiteName/> CLI provides a set of commands for managing projects, compute infrastructure, agents, and documents. These commands are grouped into four main categories based on their function.
+
+This page gives an overview of each category. You can follow the links to learn more about the available commands and their usage.
+
+## Projects
+
+Project commands allow you to configure which workspace or deployment context the CLI is targeting. You can define, switch between, and alias projects, and store this configuration in a local <code>.<CliCommand />rc</code> file to keep project-specific settings tied to your working directory.
+
+## Compute
+
+Compute commands let you create and manage the compute instances that host your agents. You can list existing instances, create new ones based on available images, and remove instances that are no longer needed. Each instance is tied to a project and can be configured with options like GPU types.
+
+
+## Agents
+
+Agent commands cover the full lifecycle of AI agents—from scaffolding a new agent project and configuring deployment parameters to uploading your code and monitoring runtime events. These commands support tasks such as generating templates, creating agents, deploying them to compute instances, and viewing their activity logs.
+
+
+## Documents
+
+Document commands allow you to manage collections of structured or unstructured data used by your agents. You can create and update collections, upload individual documents or files, retrieve content, and perform semantic or filtered searches. This enables integration of knowledge and reference data directly into your agent workflows.

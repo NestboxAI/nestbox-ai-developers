@@ -1,0 +1,8 @@
+{
+  "label": "Commands Overview",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Provides a high-level explanation of all command categories available in the CLI. Each section introduces a functional group of commands and explains what it's used for."
+  }
+}
