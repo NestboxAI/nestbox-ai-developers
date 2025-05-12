@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: Welcome to the Developer Portal
+title: Getting Started
 ---
 
 ## Introduction to <SiteName/>
