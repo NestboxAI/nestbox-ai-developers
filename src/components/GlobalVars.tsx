@@ -10,3 +10,5 @@ export const DashboardURL: React.FC = () => {
 		</a>
 	);
 };
+
+export const CliCommand: React.FC = () => <>{config.cliCommand}</>;

@@ -1,9 +1,10 @@
 import React from 'react';
 import OriginalMDXComponents from '@theme-original/MDXComponents';
-import { SiteName, DashboardURL } from '../components/GlobalVars';
+import { SiteName, DashboardURL, CliCommand } from '../components/GlobalVars';
 
 export default {
   ...OriginalMDXComponents,
   SiteName,
-  DashboardURL
+  DashboardURL,
+  CliCommand
 };
