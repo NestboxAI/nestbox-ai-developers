@@ -1,0 +1,86 @@
+---
+title: Compute
+sidebar_position: 3
+---
+
+import config from "../../../siteConfig"
+
+This page describes all commands available in the <CliCommand /> CLI for managing compute instances. Compute instances are required to host and run agents. You can create, list, and remove them, as well as select the compute image and configuration used.
+
+Each compute instance is associated with a specific project and is referenced by its unique ID.
+
+
+## List Compute Instances
+
+Display all compute instances associated with the current project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute list`}
+  </code>
+</pre>
+
+You can optionally specify a different project using the <code>--project</code> flag:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute list --project <project-id>`}
+  </code>
+</pre>
+
+This will return a list of instances with basic details such as ID, name, status, and API key.
+
+
+## List Available Images
+
+List all available compute images you can deploy an instance from:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} images list`}
+  </code>
+</pre>
+
+Each image includes its ID, name, and creator.
+
+
+## Create a Compute Instance
+
+Create a new compute instance from a selected image:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute create <image-id> <instance-name>`}
+  </code>
+</pre>
+
+You can also pass additional options (like GPU type) and specify a project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute create <image-id> <name> --project <project-id> --options=GPU_TYPE=A100`}
+  </code>
+</pre>
+
+If the image has a manifest that requires configuration, the CLI will prompt for values or accept answers via command-line flags.
+
+
+## Remove a Compute Instance
+
+To delete a compute instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute remove <instance-id>`}
+  </code>
+</pre>
+
+You will be prompted to confirm before the instance is removed.
+
+To remove an instance in a different project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} compute remove <instance-id> --project <project-id>`}
+  </code>
+</pre>
