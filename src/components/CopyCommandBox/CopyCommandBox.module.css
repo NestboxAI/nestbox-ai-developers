@@ -50,6 +50,7 @@
   overflow-x: auto;
   font-size: 0.9rem;
   background-color: transparent;
+  border: transparent;
 }
 
 .copyButton {
