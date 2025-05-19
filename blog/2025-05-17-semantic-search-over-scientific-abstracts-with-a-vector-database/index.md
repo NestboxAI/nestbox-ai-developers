@@ -7,6 +7,8 @@ tags: [vector database]
 
 Finding the right research paper can be frustrating. You might know what you're looking for, but if you don’t use the exact words the paper uses, it won’t show up. This makes it hard to discover useful studies, especially when different authors describe the same idea in different ways.
 
+<!-- truncate -->
+
 In this post, we’ll build a simple but powerful **semantic search tool** for scientific paper abstracts. Instead of relying on exact keywords, our system will understand the meaning behind your query and return papers that match — even if the words are different.
 
 We'll also add filters so you can narrow results by author or field. In the end, you'll have a better way to search research papers using both meaning and metadata.

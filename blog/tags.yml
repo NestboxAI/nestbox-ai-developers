@@ -1,3 +1,7 @@
 vector database:
     label: Vector Database
     permalink: /vector-database
+
+ai agent:
+    label: AI Agent
+    permalink: /ai-agent
