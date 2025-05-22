@@ -47,13 +47,40 @@ Now that the environment is set up, we can start adding real data to the vector 
 }
 ```
 
-There are several ways to insert data into ChromaDB via <SiteName/> — using the **<SiteName/> dashboard**, the **CLI**, or the **API**. Since this isn’t a production setup, I’ll use the dashboard for simplicity. The graphical interface makes uploading and managing documents straightforward.
+To insert documents programmatically, you can use the <SiteName/> API.This method allows you to quickly add large sets of data in bulk. For this example, we'll insert 20 scientific abstracts related to the Artificial Intelligence field, each paired with metadata such as the title, author(s), research field, and a link to the full paper. This gives us a solid dataset to experiment with semantic search later on.
 
-For this example, I’ll add 20 documents related to the **Artificial Intelligence** field. This will give us enough material to demonstrate how semantic search works in practice, including finding relevant papers by topic and exploring related results.
+Below is a code snippet using the documents-api package, which demonstrates how to add these documents directly into the vector database with just a few lines of code:
 
-Bellow you can see how one document gets added to the database:
+```javascript
+const { Configuration, AppApi } = require("documents-api");
 
-![Adding a document](./adding-a-document.png)
+const config = new Configuration({
+	apiKey: "YOUR_API_KEY",
+	basePath: "http://YOUR_DB_HOST",
+});
+const appApi = new AppApi(config);
+
+async function addScientificAbstracts(collectionId) {
+	const documents = [
+		{
+			id: "1",
+			content: "Understanding an agent's intent through its behavior...",
+			metadata: {
+				title: "General Dynamic Goal Recognition",
+				authors: ["Osher Elhadad"],
+				field: "Artificial Intelligence",
+				url: "https://arxiv.org/abs/2505.09737",
+			},
+		},
+		// Add more abstracts here as needed
+	];
+
+	const result = await appApi.addDocuments(collectionId, documents);
+	console.log(`Added documents: ${result.ids.join(", ")}`);
+}
+
+await addScientificAbstracts(collectionId);
+```
 
 ## Querying: Searching with Semantics + Filters
 
