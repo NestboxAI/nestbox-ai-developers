@@ -43,20 +43,27 @@ const songList = songs
 	.join("\n");
 
 const prompt = `
-        You're a music curator. For each of the songs below, explain in 1–2 sentences why it fits the mood: "${vibe}".
+		You are a music curator. For each of the songs below, explain in 1–2 sentences why it fits the mood: "${vibe}".
 
-        Songs:
-        ${songList}
+		Songs:
+		${songList}
 
-        Return a list with numbers and reasons.
-    `;
+		Return exactly ${songs.length} lines. Each line must start with a number (e.g., "1. ...") and be a standalone reason. Do not include any introduction, summary, or commentary. Only the numbered reasons.
+`;
 
 const response = await ollama.generate({
 	model: "gemma3:27b",
 	prompt,
 });
 
-const lines = response.response.split("\n").filter(Boolean);
+const lines = response.response
+	.split("\n")
+	.map(line => line.trim())
+	.filter(line => /^\d+\.\s+/.test(line));
+
+while (lines.length < songs.length) {
+	lines.push("No explanation provided.");
+}
 
 return songs.map((song, i) => ({
 	...song,
@@ -126,19 +133,19 @@ For example, running a test query with the input `A party with friends.`:
 			"title": "Like It",
 			"artist": "Kumi Koda",
 			"url": "https://open.spotify.com/track/78Q5Tvh52OcWlukIy6vOL1",
-			"reason": "Here's a breakdown of why each song fits the \"party with friends\" mood:"
+			"reason": "\"Like It\" – Kumi Koda – Its driving beat and confident energy immediately make you want to move and share that energy with others."
 		},
 		{
-			"title": "A Good Thing",
-			"artist": "Upbeat Retail",
-			"url": "https://open.spotify.com/track/5MLfM9KTuAhU8zYmfxNP3t",
-			"reason": "**\"Like It\" – Kumi Koda:** This track has a driving beat and energetic vocals that instantly make you want to move – perfect for getting a party started."
+			"title": "DANCE",
+			"artist": "DNCE",
+			"url": "https://open.spotify.com/track/7BfSU2ya7PZtqrl48urKqG",
+			"reason": "\"DANCE\" – DNCE – The title says it all – it’s pure, unadulterated fun designed to get everyone on their feet."
 		},
 		{
 			"title": "I Know",
 			"artist": "Big Sean",
 			"url": "https://open.spotify.com/track/6rje9f1wRFJDO2iTORw0lH",
-			"reason": "**\"A Good Thing\" – Upbeat Retail:** The positive vibes and catchy melody create a lighthearted and feel-good atmosphere, ideal for hanging out with friends."
+			"reason": "\"I Know\" – Big Sean – This track provides a confident, energetic vibe perfect for hyping up your friends and enjoying the night."
 		}
 		// ...
 	]
