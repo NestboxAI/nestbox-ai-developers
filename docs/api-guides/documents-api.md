@@ -36,7 +36,7 @@ To use the Documents API, you need to configure the client with an API key and t
 Below is an example of how to import and initialize the Documents API client with your API key and base path in both TypeScript and JavaScript:
 
 ```
-import { Configuration, CollectionApi, AppApi } from 'documents-api';
+import { Configuration, CollectionApi, AppApi } from '@nestbox-ai/documents';
 
 // Set up configuration with your API key and base URL (e.g., DB IP or endpoint)
 const config = new Configuration({
@@ -51,7 +51,7 @@ const appApi = new AppApi(config);
 
 ```javascript
 // For Node.js using CommonJS syntax
-const { Configuration, CollectionApi, AppApi } = require("documents-api");
+const { Configuration, CollectionApi, AppApi } = require("@nestbox-ai/documents");
 
 // Set up configuration with API key and base path
 const config = new Configuration({
@@ -674,7 +674,7 @@ Let’s start by creating a new collection to store documents for our RAG applic
 **TypeScript:**
 
 ```
-import { Configuration, CollectionApi } from 'documents-api';
+import { Configuration, CollectionApi } from '@nestbox-ai/documents';
 const config = new Configuration({ apiKey: 'YOUR_API_KEY', basePath: 'http://YOUR_DB_HOST' });
 const collectionApi = new CollectionApi(config);
 
@@ -690,7 +690,7 @@ const collectionId = await createCollectionExample();
 **JavaScript:**
 
 ```javascript
-const { Configuration, CollectionApi } = require("documents-api");
+const { Configuration, CollectionApi } = require("@nestbox-ai/documents");
 const config = new Configuration({
 	apiKey: "YOUR_API_KEY",
 	basePath: "http://YOUR_DB_HOST",
@@ -724,7 +724,7 @@ Now that we have a collection, let’s add some documents to it. Imagine we have
 **TypeScript:**
 
 ```
-import { AppApi } from 'documents-api';
+import { AppApi } from '@nestbox-ai/documents';
 const appApi = new AppApi(config);  // using the same config from previous example
 
 async function addDocumentsExample(collectionId: string) {
@@ -750,7 +750,7 @@ await addDocumentsExample(collectionId);
 **JavaScript:**
 
 ```javascript
-const { AppApi } = require("documents-api");
+const { AppApi } = require("@nestbox-ai/documents");
 const appApi = new AppApi(config); // using config from previous example
 
 function addDocumentsExample(collectionId) {
@@ -932,7 +932,7 @@ These examples covered creating a collection, adding documents, searching, updat
 **_TypeScript Example_**
 
 ```
-import { CollectionApi, Configuration } from 'documents-api';
+import { CollectionApi, Configuration } from '@nestbox-ai/documents';
 
 // Configure the API client
 const config = new Configuration({
@@ -973,7 +973,7 @@ chunkFileToCollectionExample();
 **_JavaScript Example_**
 
 ```javascript
-const { CollectionApi, Configuration } = require("documents-api");
+const { CollectionApi, Configuration } = require("@nestbox-ai/documents");
 
 // Configure the API client
 const config = new Configuration({
