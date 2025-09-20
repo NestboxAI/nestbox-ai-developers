@@ -1,0 +1,57 @@
+---
+title: nestbox-agents.yaml
+sidebar_position: 5
+---
+
+
+## YAML Manifest (nestbox-agents.yaml)
+
+Define agents declaratively in the project root:
+
+```yaml
+agents:
+  - name: "summarizer"
+    description: "Summarize long text into concise bullet points."
+    entry: "summarize"
+    inputSchema:
+      type: object
+      properties:
+        text:
+          type: string
+          description: "Source text to summarize."
+          minLength: 1
+        bullets:
+          type: integer
+          description: "Number of bullet points to return."
+          minimum: 1
+          maximum: 10
+          default: 5
+        language:
+          type: string
+          description: "Output language."
+          enum: ["en", "de", "nl", "bg"]
+          default: "en"
+      required: ["text"]
+
+  - name: "chat-support"
+    description: "Customer support chatbot that answers user questions with context."
+    entry: "chatHandler"
+    inputSchema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "Latest user message."
+          minLength: 1
+        userId:
+          type: string
+          description: "Identifier for the end user."
+        context:
+          type: object
+          description: "Optional conversation or business context."
+      required: ["message"]
+```
+
+> Tips:
+> - `type` defaults to `REGULAR` if omitted.
+> - `entry` is used as the runtime entry function for deploys (overridable via `--entryFunction`).

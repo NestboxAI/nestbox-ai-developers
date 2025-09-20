@@ -27,15 +27,38 @@ You can also specify the Node.js version and the project:
 
 ## Create an Agent
 
-Create a new agent on a specific compute instance:
+Create from YAML (recommended) or with CLI overrides. The command accepts `--agent` or `--all`:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent create <agent-name> --parameters=name,string,default --instance <instance-id>`}
+    {`${config.cliCommand} agent create --agent <agent-name> --instance <machine-name>`}
   </code>
 </pre>
 
-Use the <code>--project</code> flag to associate the agent with a specific project if needed.
+Create with CLI overrides (bypasses YAML fields):
+
+<pre>
+  <code className="language-bash">
+{`${config.cliCommand} agent create \
+  --agent <agent-name> \
+  --instance <machine-name> \
+  --description "My agent goal" \
+  --inputSchema '{"type":"object","properties":{"prompt":{"type":"string"}}}'`}
+  </code>
+</pre>
+
+Create all agents defined in `nestbox-agents.yaml`:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent create --all --instance <machine-name>`}
+  </code>
+</pre>
+
+Optional flags:
+- `--project <project-id>` – target project (otherwise resolved automatically if possible)
+- `--prefix <prefix>` – prepends to the agent name (e.g., `prefix-agent-name`)
+- `--type <REGULAR|CHATBOT|WORKFLOW>` – overrides YAML `type`
 
 ## List Agents
 
@@ -57,19 +80,34 @@ To list agents in another project:
 
 ## Deploy an Agent
 
-Deploy an agent from your local directory to a running instance:
+Deploy uses the same YAML (and flag) semantics as create. It zips your project root (running any configured predeploy scripts), uploads the code, and updates metadata.
+
+Deploy a single agent (YAML-backed, with optional overrides):
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent deploy <agent-id> --instance <instance-id>`}
+{`${config.cliCommand} agent deploy \
+  --agent <agent-name> \
+  --instance <machine-name> \
+  --entryFunction myAgent \
+  --description "Override goal (optional)" \
+  --inputSchema '{"type":"object","properties":{"prompt":{"type":"string"}}}'`}
   </code>
 </pre>
 
-The CLI will:
-- Find the project root
-- Run pre-deploy scripts defined in <code>{`${config.cliCommand}.config.json`}</code>
-- Zip the directory (excluding <code>node_modules</code>)
-- Trigger the deployment
+Deploy all agents from `nestbox-agents.yaml`:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent deploy --all --instance <machine-name>`}
+  </code>
+</pre>
+
+Behavior:
+- If the agent does not exist, you’ll be prompted to create it (skip prompt with `--silent`).
+- `--entryFunction` overrides the YAML `entry` for this deploy.
+- `--prefix` applies during deploy as well (names become `prefix-<agent>`).
+- Use `--log` for verbose deployment output.
 
 ## Remove an Agent
 
