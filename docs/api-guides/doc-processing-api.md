@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # Document Processing API
 
+## Install package
+Installing the package 
+```
+npm install @nestbox-ai/doc-processing-api@1.0.61 --save
+```
+
 ## Usage Example
 
 This client can be used from both **TypeScript** and **JavaScript**. Below is a minimal end-to-end example using the generated API clients.
