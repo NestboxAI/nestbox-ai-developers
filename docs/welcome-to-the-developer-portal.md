@@ -50,5 +50,6 @@ This section is divided into detailed guides for each API:
 -   **Documents API**: Store, retrieve, and manage documents used in AI training and operations.
 -   **Instances API**: Deploy, monitor, and control the operational instances of AI agents and data processors.
 -   **Agents API**: Create, configure, and manage specialized AI agents tailored to your business workflows.
+-   **Document Processing API**: Process Documents and allow users to query with GraphRAG technology
 
 Each API guide provides comprehensive reference materials, example requests and responses, and best practices to ensure secure and efficient integration.

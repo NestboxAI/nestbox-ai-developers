@@ -87,6 +87,13 @@ const config: Config = {
 							groupPathsBy: "tag",
 						},
 					} satisfies OpenApiPlugin.Options,
+					"doc-processing-api": {
+						specPath: "specs/openapi-doc-processing-api.json",
+						outputDir: "docs/api-reference/doc-processing-api",
+						sidebarOptions: {
+							groupPathsBy: "tag",
+						},
+					} satisfies OpenApiPlugin.Options,
 				},
 			},
 		],
