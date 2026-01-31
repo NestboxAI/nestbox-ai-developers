@@ -8,7 +8,7 @@ sidebar_position: 5
 ## Install package
 Installing the package 
 ```
-npm install @nestbox-ai/doc-processing-api@1.0.61 --save
+npm install @nestbox-ai/doc-processing-api --save
 ```
 
 ## Usage Example
