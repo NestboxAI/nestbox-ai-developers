@@ -16,4 +16,5 @@ Select a category below to explore specific functionalities, streamline your dev
 | Documents     | Manage document storage, retrieval, and processing. | [Documents API →](/docs/api-reference/documents/nestbox-api-documents-api)         |
 | Instances     | Handle creation, deployment, and management of instances. | [Instances API →](/docs/api-reference/instances/nestbox-api-agents-api)         |
 | Agents        | Access and control intelligent workflow agents. | [Agents API →](/docs/api-reference/agents/nestbox-api-agents-api)            |
+| Doc Processing| Access and control intelligent workflow agents. | [Docu Processing API →](/docs/api-reference/doc-processing-api/nestbox-api-documents-processing-api)            |
 

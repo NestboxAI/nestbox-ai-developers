@@ -24,6 +24,7 @@ import {
   DocumentsApi,
   EvalsApi,
   QueriesApi,
+  WebhooksApi,
 } from '@nestbox-ai/doc-processing-api';
 
 const config = new Configuration({
@@ -34,6 +35,7 @@ const profilesApi = new ProfilesApi(config);
 const documentsApi = new DocumentsApi(config);
 const evalsApi = new EvalsApi(config);
 const queriesApi = new QueriesApi(config);
+const webhooksApi = new WebhooksApi(config);
 ```
 
 ---
@@ -122,5 +124,60 @@ const queryResponse =
   });
 
 console.log('Query created:', queryResponse.data.queryId);
+```
+
+---
+
+### 6. Manage Webhooks
+
+#### Create a Webhook
+
+```ts
+const webhookData = {
+  url: 'https://your-app.com/webhooks/document-processed',
+  events: ['document.processed', 'document.failed'],
+  description: 'Webhook for document processing notifications',
+};
+
+const webhook = await webhooksApi.webhooksControllerCreateWebhook(webhookData);
+console.log('Webhook created:', webhook.data.id);
+```
+
+#### List All Webhooks
+
+```ts
+const webhooks = await webhooksApi.webhooksControllerListWebhooks();
+console.log('All webhooks:', webhooks.data);
+```
+
+#### Get a Specific Webhook
+
+```ts
+const webhookId = webhook.data.id;
+const retrievedWebhook = await webhooksApi.webhooksControllerGetWebhook(webhookId);
+console.log('Webhook details:', retrievedWebhook.data);
+```
+
+#### Update a Webhook
+
+```ts
+const updateData = {
+  url: 'https://your-app.com/webhooks/updated-endpoint',
+  events: ['document.processed', 'document.failed', 'eval.completed'],
+  description: 'Updated webhook with additional events',
+};
+
+const updatedWebhook = await webhooksApi.webhooksControllerUpdateWebhook(
+  webhookId,
+  updateData
+);
+console.log('Webhook updated:', updatedWebhook.data);
+```
+
+#### Delete a Webhook
+
+```ts
+await webhooksApi.webhooksControllerDeleteWebhook(webhookId);
+console.log('Webhook deleted successfully');
 ```
 

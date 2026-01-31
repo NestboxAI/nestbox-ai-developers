@@ -25,3 +25,4 @@ yarn-error.log*
 /docs/api-reference/agents
 /docs/api-reference/documents
 /docs/api-reference/instances
+/docs/api-reference/doc-processing-api
