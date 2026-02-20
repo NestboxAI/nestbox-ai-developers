@@ -5,10 +5,9 @@ sidebar_position: 3
 
 import config from "../../../siteConfig"
 
-This page describes all commands available in the <SiteName /> CLI for managing compute instances. Compute instances are required to host and run agents. You can create, list, and remove them, as well as select the compute image and configuration used.
+This page describes all commands available in the <SiteName /> CLI for managing compute instances. Compute instances are required to host and run agents. You can list, create, and delete them.
 
-Each compute instance is associated with a specific project and is referenced by its unique ID.
-
+Each compute instance is associated with a specific project and is referenced by its name.
 
 ## List Compute Instances
 
@@ -20,7 +19,7 @@ Display all compute instances associated with the current project:
   </code>
 </pre>
 
-You can optionally specify a different project using the <code>--project</code> flag:
+You can optionally specify a different project using the `--project` flag:
 
 <pre>
   <code className="language-bash">
@@ -28,59 +27,54 @@ You can optionally specify a different project using the <code>--project</code> 
   </code>
 </pre>
 
-This will return a list of instances with basic details such as ID, name, status, and API key.
-
-
-## List Available Images
-
-List all available compute images you can deploy an instance from:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} images list`}
-  </code>
-</pre>
-
-Each image includes its ID, name, and creator.
-
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
 
 ## Create a Compute Instance
 
-Create a new compute instance from a selected image:
+Create a new compute instance:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} compute create <image-id> <instance-name>`}
+    {`${config.cliCommand} compute create <instance-name>`}
   </code>
 </pre>
 
-You can also pass additional options (like GPU type) and specify a project:
+You can also specify a project:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} compute create <image-id> <name> --project <project-id> --options=GPU_TYPE=A100`}
+    {`${config.cliCommand} compute create <instance-name> --project <project-id>`}
   </code>
 </pre>
 
-If the image has a manifest that requires configuration, the CLI will prompt for values or accept answers via command-line flags.
+**Parameters:**
+- `<instance-name>` – Name for the new compute instance
 
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
 
-## Remove a Compute Instance
+## Delete a Compute Instance
 
-To delete a compute instance:
+Delete a compute instance:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} compute remove <instance-id>`}
+    {`${config.cliCommand} compute delete <instance-name>`}
   </code>
 </pre>
 
-You will be prompted to confirm before the instance is removed.
-
-To remove an instance in a different project:
+To skip the confirmation prompt, use the `--force` flag:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} compute remove <instance-id> --project <project-id>`}
+    {`${config.cliCommand} compute delete <instance-name> --force`}
   </code>
 </pre>
+
+**Parameters:**
+- `<instance-name>` – Name of the compute instance to delete
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+- `--force` – Skip confirmation prompt

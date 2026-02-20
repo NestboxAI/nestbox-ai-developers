@@ -5,29 +5,32 @@ sidebar_position: 4
 
 import config from "../../../siteConfig"
 
-This page covers all commands related to agent management in the <SiteName /> CLI. Agents are at the core of the platform and represent deployable AI logic. This section includes commands for generating, creating, deploying, listing, removing agents, and monitoring their runtime events.
+This page covers all commands related to agent management in the <SiteName /> CLI. Agents are at the core of the platform and represent deployable AI logic. This section includes commands for listing, creating, deploying, and removing agents.
 
-## Generate Agent Structure
+## List Agents
 
-Scaffold a new agent directory structure with optional language and template parameters:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent generate <folder> --lang=ts --template=basic`}
-  </code>
-</pre>
-
-You can also specify the Node.js version and the project:
+List all agents in the project:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent generate <folder> --lang=js --version=20 --project <project-id>`}
+    {`${config.cliCommand} agent list`}
   </code>
 </pre>
+
+To list agents in another project:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent list --project <project-id>`}
+  </code>
+</pre>
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
 
 ## Create an Agent
 
-Create from YAML (recommended) or with CLI overrides. The command accepts `--agent` or `--all`:
+Create a single agent or all agents defined in `nestbox-agents.yaml`:
 
 <pre>
   <code className="language-bash">
@@ -35,14 +38,15 @@ Create from YAML (recommended) or with CLI overrides. The command accepts `--age
   </code>
 </pre>
 
-Create with CLI overrides (bypasses YAML fields):
+Create with additional options:
 
 <pre>
   <code className="language-bash">
-{`${config.cliCommand} agent create \
-  --agent <agent-name> \
-  --instance <machine-name> \
-  --description "My agent goal" \
+{`${config.cliCommand} agent create \\
+  --agent <agent-name> \\
+  --instance <machine-name> \\
+  --type REGULAR \\
+  --description "My agent goal" \\
   --inputSchema '{"type":"object","properties":{"prompt":{"type":"string"}}}'`}
   </code>
 </pre>
@@ -55,43 +59,24 @@ Create all agents defined in `nestbox-agents.yaml`:
   </code>
 </pre>
 
-Optional flags:
-- `--project <project-id>` – target project (otherwise resolved automatically if possible)
-- `--prefix <prefix>` – prepends to the agent name (e.g., `prefix-agent-name`)
-- `--type <REGULAR|CHATBOT|WORKFLOW>` – overrides YAML `type`
-
-## List Agents
-
-List all agents running on a given compute instance:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent list --instance <instance-id>`}
-  </code>
-</pre>
-
-To list agents in another project:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent list --instance <instance-id> --project <project-id>`}
-  </code>
-</pre>
+**Options:**
+- `--agent <agent>` – Agent name to create
+- `--all` – Create all agents defined in `nestbox-agents.yaml`
+- `--project <project>` – Project ID (defaults to current project)
+- `--type <type>` – Agent type (e.g. `CHAT`, `AGENT`, `REGULAR`)
+- `--description <description>` – Description of the agent
+- `--instance <instance>` – Machine name
+- `--inputSchema <inputSchema>` – Agent input schema
 
 ## Deploy an Agent
 
-Deploy uses the same YAML (and flag) semantics as create. It zips your project root (running any configured predeploy scripts), uploads the code, and updates metadata.
+Deploy an AI agent to the <SiteName /> platform. Deploy uses the same YAML (and flag) semantics as create. It zips your project root, uploads the code, and updates metadata.
 
-Deploy a single agent (YAML-backed, with optional overrides):
+Deploy a single agent:
 
 <pre>
   <code className="language-bash">
-{`${config.cliCommand} agent deploy \
-  --agent <agent-name> \
-  --instance <machine-name> \
-  --entryFunction myAgent \
-  --description "Override goal (optional)" \
-  --inputSchema '{"type":"object","properties":{"prompt":{"type":"string"}}}'`}
+    {`${config.cliCommand} agent deploy --agent <agent-name> --instance <machine-name>`}
   </code>
 </pre>
 
@@ -103,38 +88,52 @@ Deploy all agents from `nestbox-agents.yaml`:
   </code>
 </pre>
 
-Behavior:
-- If the agent does not exist, you’ll be prompted to create it (skip prompt with `--silent`).
+Deploy with verbose logging:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent deploy --all --instance <machine-name> --log`}
+  </code>
+</pre>
+
+Deploy with a custom prefix:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} agent deploy --agent <agent-name> --instance <machine-name> --prefix "v2-"`}
+  </code>
+</pre>
+
+**Options:**
+- `--agent <agent>` – Agent name to deploy
+- `--all` – Deploy all agents defined in `nestbox-agents.yaml`
+- `--prefix <prefix>` – A prefix added to beginning of the agent name
+- `--description <description>` – Goal/description of the agent
+- `--inputSchema <inputSchema>` – Agent input schema
+- `--project <project>` – Project ID (defaults to current project)
+- `--type <type>` – Agent type (e.g. `CHAT`, `AGENT`, `REGULAR`)
+- `--entryFunction <entryFunction>` – Entry function name
+- `--instance <instance>` – Machine name
+- `--log` – Show detailed logs during deployment
+- `--silent` – Disable automatic agent creation
+
+**Behavior:**
+- If the agent does not exist, you'll be prompted to create it (skip prompt with `--silent`).
 - `--entryFunction` overrides the YAML `entry` for this deploy.
 - `--prefix` applies during deploy as well (names become `prefix-<agent>`).
-- Use `--log` for verbose deployment output.
 
 ## Remove an Agent
 
-Remove an agent from an instance:
+Remove an agent from the platform:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent remove --instance <instance-id> <agent-id>`}
+    {`${config.cliCommand} agent remove <agent-name>`}
   </code>
 </pre>
 
-The CLI will prompt for confirmation before removing the agent.
+**Parameters:**
+- `<agent-name>` – Name of the agent to remove
 
-## Monitor Agent Events
-
-Stream recent logs or events emitted by an agent:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent events <agent-id>`}
-  </code>
-</pre>
-
-To view only the latest N entries:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent events <agent-id> --tail 100`}
-  </code>
-</pre>
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)

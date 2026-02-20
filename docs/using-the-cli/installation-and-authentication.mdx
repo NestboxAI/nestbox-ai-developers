@@ -74,8 +74,10 @@ To remove the saved token and log out from a specific domain, run:
 
 <pre>
     <code className="language-bash">
-        {`${config.cliCommand} logout <${config.cliCommand}-domain>`}
+        {`${config.cliCommand} logout [${config.cliCommand}-domain]`}
     </code>
 </pre>
+
+The domain parameter is optional. If not provided, the CLI will logout from all stored credentials.
 
 

@@ -1,0 +1,481 @@
+---
+title: Document Processing
+sidebar_position: 8
+---
+
+import config from "../../../siteConfig"
+
+This page describes all commands in the <SiteName /> CLI for managing document processing pipelines. The `doc-proc` command group lets you upload documents, run processing jobs, manage profiles, run evaluations, execute batch queries, and configure webhooks.
+
+**Global options** (available on all `doc-proc` subcommands):
+- `--project <projectId>` – Project ID or name (defaults to current project)
+- `--instance <instanceId>` – Document processing instance ID
+- `--json` – Output raw JSON instead of formatted tables
+
+---
+
+## Profile Management
+
+A *profile* is a YAML configuration file that controls how documents are processed (OCR settings, chunking strategy, GraphRAG indexing, etc.).
+
+### Initialize a Profile Template
+
+Scaffold a profile YAML template to the local filesystem:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile init -o ./my-profile.yaml`}
+  </code>
+</pre>
+
+**Options:**
+- `-o, --output <path>` – Output file path (default: `./profile.yaml`)
+- `-f, --force` – Overwrite existing file
+
+### Create a Profile
+
+Register a profile from a YAML file with the processing instance:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile create --file ./my-profile.yaml`}
+  </code>
+</pre>
+
+With a custom name and tags:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile create --file ./my-profile.yaml --name "OCR + GraphRAG" --tags "finance,contracts,2024"`}
+  </code>
+</pre>
+
+**Options:**
+- `-f, --file <path>` – Path to profile YAML file (required)
+- `-n, --name <name>` – Override the profile name from the file
+- `--tags <tags>` – Comma-separated list of tags to associate with the profile
+- `--project <projectId>` – Project ID or name
+- `--instance <instanceId>` – Processing instance ID
+- `--json` – Output raw JSON
+
+### List Profiles
+
+List all profiles registered with the instance. Displays a table with **Profile ID**, **Name**, **Tags**, and **Created At**:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile list`}
+  </code>
+</pre>
+
+Filter by tags:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile list --tags "finance,2024"`}
+  </code>
+</pre>
+
+**Options:**
+- `--page <page>` – Page number (default: `1`)
+- `--limit <limit>` – Page size (default: `20`)
+- `--tags <tags>` – Filter by comma-separated tags — only profiles matching any of the given tags are returned
+
+### Show Profile Details
+
+Show full details of a profile by ID:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile show --profile <profileId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--profile <profileId>` – Profile ID (required)
+
+### Validate a Profile
+
+Validate a profile YAML file against the schema without registering it:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile validate --file <path>`}
+  </code>
+</pre>
+
+**Options:**
+- `-f, --file <path>` – Path to profile YAML file (required)
+
+### Profile Schema
+
+Print the full profile JSON Schema for reference:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc profile schema`}
+  </code>
+</pre>
+
+---
+
+## Document Management
+
+### Create a Document
+
+Upload a file and create a document processing job:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document create --input ./contract.pdf --profile prof-abc123`}
+  </code>
+</pre>
+
+With tags:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document create --input ./invoice.pdf --profile prof-abc123 --tags "invoice,2024,acme-corp"`}
+  </code>
+</pre>
+
+**Options:**
+- `--input <path>` – Document file path (required)
+- `--profile <profileId>` – Processing profile ID
+- `--stages <stages>` – Comma-separated stage override (e.g. `ocr,chunking`)
+- `--priority <priority>` – Job priority: `low`, `normal`, or `high`
+- `--tags <tags>` – Comma-separated list of tags to associate with the document
+
+### List Documents
+
+List all processed documents. Displays a table with **Document ID**, **Name**, **Tags**, **Profile ID**, and **Processed At**:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document list`}
+  </code>
+</pre>
+
+Filter by profile and tags:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document list --profile prof-abc123 --tags "invoice,2024"`}
+  </code>
+</pre>
+
+**Options:**
+- `--page <page>` – Page number (default: `1`)
+- `--limit <limit>` – Page size (default: `20`)
+- `--profile <profileId>` – Filter by profile ID
+- `--tags <tags>` – Filter by comma-separated tags — only documents matching any of the given tags are returned
+
+### Show Document Details
+
+Show details of a specific processed document:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document show --document <documentId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--document <documentId>` – Document ID (required)
+
+### Download Document Artifacts
+
+Download all artifacts for a document as a zip file (GraphRAG output, chunks, etc.):
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc document artifacts --document doc-abc123 -o ./artifacts.zip`}
+  </code>
+</pre>
+
+**Options:**
+- `--document <documentId>` – Document ID (required)
+- `-o, --output <path>` – Output zip path (default: `./document-artifacts.zip`)
+
+---
+
+## Job Monitoring
+
+### List Jobs
+
+List document processing jobs:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc job list`}
+  </code>
+</pre>
+
+**Options:**
+- `--state <state>` – Filter by job state (e.g. `pending`, `running`, `completed`, `failed`)
+- `--page <page>` – Page number (default: `1`)
+- `--limit <limit>` – Page size (default: `20`)
+
+### Job Status
+
+Get the status of a specific job:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc job status --job job-xyz789`}
+  </code>
+</pre>
+
+With full details:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc job status --job job-xyz789 --full`}
+  </code>
+</pre>
+
+**Options:**
+- `--job <jobId>` – Job ID (required)
+- `--full` – Fetch full job details instead of lightweight status
+
+---
+
+## Evaluations
+
+Evaluations run a set of Q&A test cases against a processed document to measure extraction quality.
+
+### Initialize an Eval Template
+
+Scaffold an eval YAML template:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc eval init -o ./eval.yaml`}
+  </code>
+</pre>
+
+**Options:**
+- `-o, --output <path>` – Output file path (default: `./eval.yaml`)
+- `-f, --force` – Overwrite existing file
+
+**Example eval.yaml:**
+
+```yaml
+testCases:
+  - id: q1
+    question: "What are the payment terms?"
+    expectedAnswer: "Net 30"
+```
+
+### Run an Evaluation
+
+Run an evaluation against a document:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc eval run --document doc-abc123 --file ./eval.yaml`}
+  </code>
+</pre>
+
+**Options:**
+- `--document <documentId>` – Document ID (required)
+- `-f, --file <path>` – Path to eval YAML file (required)
+
+### Validate an Eval File
+
+Validate an eval YAML file against the schema without running it:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc eval validate --document <documentId> --file <path>`}
+  </code>
+</pre>
+
+### List Evaluations
+
+List all evaluations for a document:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc eval list --document <documentId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--document <documentId>` – Document ID (required)
+- `--page <page>` – Page number (default: `1`)
+- `--limit <limit>` – Page size (default: `20`)
+
+### Show Evaluation Details
+
+Get full details of a specific evaluation:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc eval show --document <documentId> --eval <evalId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--document <documentId>` – Document ID (required)
+- `--eval <evalId>` – Evaluation ID (required)
+
+---
+
+## Batch Queries
+
+Batch queries let you run multiple questions against a processed document in one request.
+
+### Initialize a Query Template
+
+Scaffold a batch query YAML template:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc query init -o ./query.yaml`}
+  </code>
+</pre>
+
+**Options:**
+- `-o, --output <path>` – Output file path (default: `./query.yaml`)
+- `-f, --force` – Overwrite existing file
+
+**Example query.yaml:**
+
+```yaml
+queries:
+  - id: payment_terms
+    question: "What are the payment terms?"
+    mode: local
+```
+
+### Submit a Batch Query
+
+Submit a batch query from a YAML file:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc query create --file <path>`}
+  </code>
+</pre>
+
+**Options:**
+- `-f, --file <path>` – YAML file path (required)
+
+### Validate a Query File
+
+Validate a query YAML file without submitting it:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc query validate --file <path>`}
+  </code>
+</pre>
+
+### List Batch Queries
+
+List all batch queries:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc query list`}
+  </code>
+</pre>
+
+**Options:**
+- `--page <page>` – Page number (default: `1`)
+- `--limit <limit>` – Page size (default: `20`)
+
+### Show Query Details
+
+Get details of a specific batch query:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc query show --query <queryId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--query <queryId>` – Query ID (required)
+
+---
+
+## Webhooks
+
+### Create a Webhook
+
+Register a webhook to receive processing event notifications:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc webhook create --url https://my-app.com/hooks/nestbox --event job.completed job.failed`}
+  </code>
+</pre>
+
+**Options:**
+- `--url <url>` – Webhook URL (required)
+- `--secret <secret>` – HMAC signing secret for payload verification
+- `--event <event...>` – One or more event names to subscribe to
+
+### List Webhooks
+
+List all registered webhooks:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc webhook list`}
+  </code>
+</pre>
+
+### Show Webhook Details
+
+Get details of a specific webhook:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc webhook show --webhook <webhookId>`}
+  </code>
+</pre>
+
+### Update a Webhook
+
+Update a webhook's configuration:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc webhook update --webhook <webhookId> --url <url>`}
+  </code>
+</pre>
+
+**Options:**
+- `--webhook <webhookId>` – Webhook ID (required)
+- `--url <url>` – New webhook URL
+- `--secret <secret>` – New signing secret
+- `--event <event...>` – New event subscriptions
+- `--active <true|false>` – Enable or disable the webhook
+
+### Delete a Webhook
+
+Delete a webhook:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc webhook delete --webhook <webhookId>`}
+  </code>
+</pre>
+
+**Options:**
+- `--webhook <webhookId>` – Webhook ID (required)
+
+---
+
+## Health Check
+
+Check the health of the document processing API:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} doc-proc health`}
+  </code>
+</pre>

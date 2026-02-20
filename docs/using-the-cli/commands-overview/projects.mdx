@@ -5,14 +5,23 @@ sidebar_position: 2
 
 import config from "../../../siteConfig"
 
-This page describes all commands available in the <CliCommand /> CLI for managing project configuration. Projects define the default context used for most CLI operations, such as deploying agents or managing compute instances.
+This page describes all commands available in the <SiteName /> CLI for managing project configuration. Projects define the default context used for most CLI operations, such as deploying agents or managing compute instances.
 
-Each project setting is stored locally and can be associated with a specific directory via a <code>.<CliCommand />rc</code> file.
+## List Projects
 
+List all available projects:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} project list`}
+  </code>
+</pre>
+
+Shows all projects from the API with their names, aliases (if any), and indicates which is the current default project.
 
 ## Set Active Project
 
-Use this command to define which project the CLI should use by default in the current directory.
+Use this command to define which project the CLI should use by default:
 
 <pre>
   <code className="language-bash">
@@ -20,53 +29,47 @@ Use this command to define which project the CLI should use by default in the cu
   </code>
 </pre>
 
-This will create or update a <code>.<CliCommand />rc</code> file in the current folder with the following format:
+**Parameters:**
+- `<project-name>` – Name of the project to set as default
 
-```json
-{
-  "projects": {
-    "default": "<project-name>"
-  }
-}
-```
-
-## Add a Named Project Alias
-
-You can define multiple project aliases, which allows you to quickly switch between environments (e.g., staging, production).
+**Example:**
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} project add <project-name> alias=<alias>`}
+    {`${config.cliCommand} project use my-ai-project`}
   </code>
 </pre>
 
-For example:
+## Add a Project
+
+Add a project with an optional alias:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} project add sales-123 alias=prod`}
+    {`${config.cliCommand} project add <project-name> [alias]`}
   </code>
 </pre>
 
-This updates <code>.<CliCommand />rc</code> with:
+**Parameters:**
+- `<project-name>` – Name of the project to add
+- `[alias]` – Optional alias for the project
 
-```json
-{
-  "projects": {
-    "default": "project-name",
-    "prod": "sales-123"
-  }
-}
-```
+**Example:**
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} project add my-ai-project myproj`}
+  </code>
+</pre>
 
 ## How Project Context Is Used
 
-When a command requires a project context, the CLI will look for a <code>.<CliCommand />rc</code> file in the current directory or parent directories. If no project is configured and none is specified via <code>--project</code>, the CLI will display an error.
+When a command requires a project context, the CLI will look for a <code>.<CliCommand />rc</code> file in the current directory or parent directories. If no project is configured and none is specified via `--project`, the CLI will display an error.
 
 You can always override the default by passing a specific project ID:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent deploy <agent-id> --project my-project`}
+    {`${config.cliCommand} agent deploy --agent <agent-name> --project my-project`}
   </code>
 </pre>

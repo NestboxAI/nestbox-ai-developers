@@ -5,7 +5,7 @@ sidebar_position: 1
 
 import config from "../../../siteConfig"
 
-This workflow walks through the full lifecycle of deploying an agent using the <SiteName /> CLI. It includes environment setup, agent creation, deployment, execution, and cleanup.
+This workflow walks through the full lifecycle of deploying an agent using the <SiteName /> CLI. It includes environment setup, agent creation, deployment, and cleanup.
 
 ## Step 1: Project Setup
 
@@ -29,19 +29,19 @@ List available compute instances or create a new one:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} instance list`}
+    {`${config.cliCommand} compute list`}
     <br/>
-    {`${config.cliCommand} instance create groot`}
+    {`${config.cliCommand} compute create groot`}
   </code>
 </pre>
 
 ## Step 3: Create Agent
 
-Create a new agent with inputs and associate it with the instance:
+Create a new agent and associate it with the instance:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent create my-agent --input name,string,default`}
+    {`${config.cliCommand} agent create --agent my-agent --instance groot --type REGULAR`}
   </code>
 </pre>
 
@@ -53,23 +53,15 @@ List agents to confirm:
   </code>
 </pre>
 
-Add a webhook to receive events:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent webhook add "https://webhook.site/your-id" QUERY_COMPLETED`}
-  </code>
-</pre>
-
 ## Step 4: Generate and Deploy Agent
 
 Generate the agent project locally:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} generate project --lang=ts`}
+    {`${config.cliCommand} generate project my-agent --lang ts --template agent`}
     <br/>
-    {`cd agents`}
+    {`cd my-agent`}
   </code>
 </pre>
 
@@ -77,35 +69,17 @@ Deploy the agent to the compute instance:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent deploy --instance ... --agent ...`}
+    {`${config.cliCommand} agent deploy --agent my-agent --instance groot`}
   </code>
 </pre>
 
-## Step 5: Run and Monitor
-
-Invoke the agent with test input:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent run name Roy`}
-  </code>
-</pre>
-
-Tail the logs:
-
-<pre>
-  <code className="language-bash">
-    {`${config.cliCommand} agent logs my-agent --tail 100`}
-  </code>
-</pre>
-
-## Step 6: Cleanup
+## Step 5: Cleanup
 
 Remove the agent and logout:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} agent remove my-agent-id`}
+    {`${config.cliCommand} agent remove my-agent`}
     <br/>
     {`${config.cliCommand} logout demo.${config.cliCommand}.ai`}
   </code>

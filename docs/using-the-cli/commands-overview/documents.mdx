@@ -1,13 +1,15 @@
 ---
 title: Documents
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 import config from "../../../siteConfig"
 
-This page describes all commands in the <SiteName /> CLI for managing documents and collections. Documents are organized into collections and can be individually uploaded, updated, retrieved, or deleted. These commands also support full-text and semantic search.
+This page describes all commands in the <SiteName /> CLI for managing documents and collections. Documents are organized into collections and can be individually uploaded, updated, retrieved, or deleted. These commands also support semantic and filtered search.
 
-## List Collections
+## Document Collections
+
+### List Collections
 
 List all document collections available in the current project:
 
@@ -17,94 +19,208 @@ List all document collections available in the current project:
   </code>
 </pre>
 
-## Create a Collection
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Create a Collection
 
 Create a new document collection:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document collection create --name "<collection-name>"`}
+    {`${config.cliCommand} document collection create <collection-name>`}
   </code>
 </pre>
 
-You can include metadata like description, configuration settings, or indexes when applicable.
+With metadata:
 
-## Update a Collection
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection create my-docs --metadata '{"category": "research"}'`}
+  </code>
+</pre>
+
+**Parameters:**
+- `<collection-name>` – Name of the collection to create
+
+**Options:**
+- `--metadata <json>` – Metadata for the document collection in JSON format
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Get a Collection
+
+Get details of a specific document collection:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document collection get <collection-id>`}
+  </code>
+</pre>
+
+**Parameters:**
+- `<collection-id>` – ID of the collection to retrieve
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Update a Collection
 
 Update metadata for an existing collection:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document collection update --id <collection-id> --name "<new-name>"`}
+    {`${config.cliCommand} document collection update <collection-id> --name "<new-name>"`}
   </code>
 </pre>
 
-## Delete a Collection
+**Parameters:**
+- `<collection-id>` – ID of the collection to update
+
+**Options:**
+- `--name <name>` – New name of the document collection
+- `--metadata <json>` – New metadata for the document collection in JSON format
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Delete a Collection
 
 Permanently delete a document collection:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document collection delete --id <collection-id>`}
+    {`${config.cliCommand} document collection delete <collection-id>`}
   </code>
 </pre>
 
-## Add a Document
+**Parameters:**
+- `<collection-id>` – ID of the collection to delete
 
-Create a new document by passing a JSON object directly:
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+---
+
+## Documents
+
+### Add a Document
+
+Add a document to a collection:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document doc add --collection <collection-id> --data '{ "title": "Doc Title", "body": "Content" }'`}
+    {`${config.cliCommand} document doc add <collection-id> <document-content>`}
   </code>
 </pre>
 
-## Upload a File
-
-Upload a file and register it as a document in a collection:
+With metadata:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document doc upload-file --collection <collection-id> --file ./example.pdf`}
+    {`${config.cliCommand} document doc add col123 "This is my document content" --metadata '{"title": "My Doc"}'`}
   </code>
 </pre>
 
-## Get a Document
+**Parameters:**
+- `<collection-id>` – ID of the collection to add the document to
+- `<document-content>` – Content of the document
+
+**Options:**
+- `--metadata <json>` – Document metadata in JSON format (optional)
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Get a Document
 
 Fetch a document by its ID:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document doc get --id <document-id>`}
+    {`${config.cliCommand} document doc get <collection-id> <document-id>`}
   </code>
 </pre>
 
-## Update a Document
+**Parameters:**
+- `<collection-id>` – ID of the collection containing the document
+- `<document-id>` – ID of the document to retrieve
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Update a Document
 
 Update the contents of a document:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document doc update --id <document-id> --data '{ "title": "Updated Title" }'`}
+    {`${config.cliCommand} document doc update <collection-id> <document-id> <new-content>`}
   </code>
 </pre>
 
-## Delete a Document
+**Parameters:**
+- `<collection-id>` – ID of the collection containing the document
+- `<document-id>` – ID of the document to update
+- `<new-content>` – New content for the document
+
+**Options:**
+- `--metadata <json>` – Updated document metadata in JSON format (optional)
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Delete a Document
 
 Remove a document by ID:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document doc delete --id <document-id>`}
+    {`${config.cliCommand} document doc delete <collection-id> <document-id>`}
   </code>
 </pre>
 
-## Search Documents
+**Parameters:**
+- `<collection-id>` – ID of the collection containing the document
+- `<document-id>` – ID of the document to delete
 
-Perform a semantic or keyword-based search:
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Upload a File
+
+Upload a file as a document:
 
 <pre>
   <code className="language-bash">
-    {`${config.cliCommand} document search --collection <collection-id> --query "search terms"`}
+    {`${config.cliCommand} document doc upload-file <collection-id> <file-path>`}
   </code>
 </pre>
+
+With file type:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc upload-file col123 ./document.pdf --type pdf`}
+  </code>
+</pre>
+
+**Parameters:**
+- `<collection-id>` – ID of the collection to upload the file to
+- `<file-path>` – Path to the file to upload
+
+**Options:**
+- `--type <fileType>` – Type of the file (e.g., `pdf`, `txt`, `doc`)
+- `--options <json>` – Additional options for file processing in JSON format
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+
+### Search Documents
+
+Search for documents within collections:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} document doc search <collection-id> <search-query>`}
+  </code>
+</pre>
+
+**Parameters:**
+- `<collection-id>` – ID of the collection to search in
+- `<search-query>` – Search query string
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
+- `--filter <json>` – Filter criteria as JSON string

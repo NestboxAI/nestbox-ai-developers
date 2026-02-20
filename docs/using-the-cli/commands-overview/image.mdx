@@ -1,0 +1,21 @@
+---
+title: Images
+sidebar_position: 6
+---
+
+import config from "../../../siteConfig"
+
+This page describes commands for managing <SiteName /> images. Images are used as the base for compute instances.
+
+## List Images
+
+List all available images:
+
+<pre>
+  <code className="language-bash">
+    {`${config.cliCommand} image list`}
+  </code>
+</pre>
+
+**Options:**
+- `--project <projectId>` – Project ID or name (defaults to the current project)
